@@ -9,7 +9,10 @@ from flask_mail import Message
 
 from aegisshield.extensions import db, mail, limiter
 from aegisshield.models.user import User
-from aegisshield.forms import LoginForm, RegistrationForm, ForgotPasswordForm, ResetPasswordForm
+from aegisshield.models.otp import PasswordResetOTP
+from aegisshield.forms import LoginForm, RegistrationForm, ForgotPasswordForm, ResetPasswordForm, OTPResetForm
+import random
+from datetime import timedelta
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -69,6 +72,8 @@ def logout():
     return redirect(url_for("main.landing"))
 
 
+# ── Forgot Password ───────────────────────────────────────────────────────────
+
 @auth_bp.route("/forgot-password", methods=["GET", "POST"])
 @limiter.limit("200 per hour")
 def forgot_password():
@@ -79,15 +84,31 @@ def forgot_password():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.strip().lower()).first()
         if user:
-            token = user.get_reset_token()
-            reset_url = url_for("auth.reset_password", token=token, _external=True)
-            sent = _send_reset_email(user, reset_url)
+            # Generate 6-digit OTP code
+            otp_code = str(random.randint(100000, 999999))
+            
+            # Delete any existing OTP records for this email
+            PasswordResetOTP.query.filter_by(email=user.email).delete()
+            
+            # Create new OTP record (expires in 15 minutes)
+            expires_at = datetime.utcnow() + timedelta(minutes=15)
+            otp_record = PasswordResetOTP(
+                email=user.email,
+                otp_code=otp_code,
+                expires_at=expires_at
+            )
+            db.session.add(otp_record)
+            db.session.commit()
+            
+            # Send OTP email
+            sent = _send_reset_otp_email(user, otp_code)
+            
             return render_template(
                 "auth/forgot_password.html",
                 form=form,
                 title="Forgot Password",
                 success=True,
-                reset_url=reset_url,
+                otp_code=otp_code,
                 email=user.email,
                 sent=sent
             )
@@ -97,23 +118,48 @@ def forgot_password():
     return render_template("auth/forgot_password.html", form=form, title="Forgot Password")
 
 
-# ── Reset Password ────────────────────────────────────────────────────────────
+# ── Reset Password (OTP) ──────────────────────────────────────────────────────
 
-@auth_bp.route("/reset-password/<token>", methods=["GET", "POST"])
-def reset_password(token):
+@auth_bp.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.index"))
 
-    user = User.verify_reset_token(token)
-    if not user:
-        flash("The reset link is invalid or has expired.", "danger")
-        return redirect(url_for("auth.forgot_password"))
+    form = OTPResetForm()
+    
+    # Prefill email if provided in query params (GET request)
+    if request.method == "GET" and "email" in request.args:
+        form.email.data = request.args.get("email")
 
-    form = ResetPasswordForm()
     if form.validate_on_submit():
+        email = form.email.data.strip().lower()
+        otp_code = form.otp_code.data.strip()
+        
+        # Check if user exists
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            form.email.errors.append("This email address is not registered in our system.")
+            return render_template("auth/reset_password.html", form=form, title="Reset Password")
+            
+        # Find latest OTP record for this email
+        otp_record = PasswordResetOTP.query.filter_by(email=email).order_by(PasswordResetOTP.created_at.desc()).first()
+        
+        if not otp_record or otp_record.otp_code != otp_code:
+            form.otp_code.errors.append("Invalid OTP code. Please check and try again.")
+            return render_template("auth/reset_password.html", form=form, title="Reset Password")
+            
+        if otp_record.is_expired():
+            form.otp_code.errors.append("This OTP code has expired. Please request a new one.")
+            return render_template("auth/reset_password.html", form=form, title="Reset Password")
+            
+        # OTP is valid! Reset password
         user.set_password(form.password.data)
+        
+        # Clean up the OTP record
+        PasswordResetOTP.query.filter_by(email=email).delete()
         db.session.commit()
-        flash("Your password has been reset. Please log in.", "success")
+        
+        flash("Your password has been reset successfully! Please log in with your new password.", "success")
         return redirect(url_for("auth.login"))
 
     return render_template("auth/reset_password.html", form=form, title="Reset Password")
@@ -135,6 +181,8 @@ def emergency_reset():
     from flask import current_app
     
     try:
+        # Delete OTP records
+        PasswordResetOTP.query.delete()
         # Delete threat reports first (references scan_history and users)
         ThreatReport.query.delete()
         # Then delete scan histories (references users)
@@ -153,13 +201,14 @@ def emergency_reset():
     return redirect(url_for("auth.login"))
 
 
+# ── Helper ────────────────────────────────────────────────────────────────────
 
-def _send_reset_email(user: User, reset_url: str) -> bool:
+def _send_reset_otp_email(user: User, otp_code: str) -> bool:
     try:
         msg = Message(
-            subject="AegisShield AI – Password Reset Request",
+            subject="AegisShield AI – Password Reset OTP",
             recipients=[user.email],
-            html=render_template("email/reset_password.html", user=user, reset_url=reset_url),
+            html=f"<p>Hello {user.username},</p><p>Your password reset OTP is: <strong>{otp_code}</strong></p><p>This OTP will expire in 15 minutes.</p>",
         )
         mail.send(msg)
         return True

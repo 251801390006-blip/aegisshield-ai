@@ -68,6 +68,24 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField("Reset Password")
 
 
+class OTPResetForm(FlaskForm):
+    email = StringField("Email Address", validators=[DataRequired(), Email()])
+    otp_code = StringField("6-Digit OTP Code", validators=[DataRequired(), Length(min=6, max=6, message="OTP must be exactly 6 digits.")])
+    password = PasswordField(
+        "New Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, message="Password must be at least 8 characters."),
+        ],
+    )
+    confirm_password = PasswordField(
+        "Confirm New Password",
+        validators=[DataRequired(), EqualTo("password", message="Passwords must match.")],
+    )
+    submit = SubmitField("Reset Password & Sign In")
+
+
+
 # ── Profile Form ──────────────────────────────────────────────────────────────
 
 class ProfileForm(FlaskForm):
