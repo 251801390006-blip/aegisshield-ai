@@ -92,7 +92,25 @@ def analyze_password(password: str) -> dict:
         is_common, has_repeated, has_sequential, has_keyboard
     )
 
+    # Generate AI Summary
+    summary = f"This password is classified as **{strength}** with a strength score of **{score}/100**."
+    if score >= 80:
+        summary += " The password has excellent entropy and complexity. It features a diverse mix of character sets and lacks common dictionary patterns, making it highly secure against brute-force and dictionary attacks."
+    elif score >= 60:
+        summary += " It offers moderate protection but has minor vulnerabilities. We recommend adding special characters or increasing the length to make it extremely robust."
+    else:
+        summary += " It is highly vulnerable. The model identified critical risk factors: "
+        risks = []
+        if is_common: risks.append("commonly used word list")
+        if length < 8: risks.append("very short length")
+        if has_repeated: risks.append("repeating sequences")
+        if has_sequential: risks.append("sequential runs (e.g. abc/123)")
+        if has_keyboard: risks.append("keyboard patterns (e.g. qwerty)")
+        if not (has_upper and has_digit and has_special): risks.append("low character diversity")
+        summary += ", ".join(risks) + ". It could be cracked almost instantly in a brute-force attack."
+
     return {
+        "result": strength,  # Match database result field expectations
         "score": score,
         "strength": strength,
         "strength_class": strength_class,
@@ -110,8 +128,10 @@ def analyze_password(password: str) -> dict:
             "has_keyboard_pattern": has_keyboard,
         },
         "recommendations": recommendations,
+        "recommendation": "; ".join(recommendations),  # Fallback field
         "is_threat": score < 40,
         "risk_score": max(0, 100 - score),
+        "summary": summary,
     }
 
 

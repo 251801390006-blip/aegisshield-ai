@@ -71,6 +71,7 @@ def analyze():
         "safe_probability": result.get("safe_probability"),
         "indicators": result.get("indicators", []),
         "features": result.get("features", {}),
+        "summary": result.get("summary"),
     })
     db.session.add(scan)
     db.session.commit()

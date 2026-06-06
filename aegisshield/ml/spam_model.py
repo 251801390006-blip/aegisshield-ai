@@ -189,6 +189,20 @@ class SpamDetector:
         # Indicator flags
         indicators = self._get_indicators(text)
 
+        # Generate AI summary
+        summary = f"This email is classified as **{result}** with a confidence score of **{confidence}%**."
+        if is_spam:
+            summary += " The Naive Bayes and Logistic Regression ensemble model detected multiple marketing or social engineering keywords."
+            if "Money/prize offer detected" in indicators:
+                summary += " It contains language offering monetary rewards or lottery prizes."
+            if "Urgency language detected" in indicators:
+                summary += " It attempts to create false urgency (e.g. 'immediately', 'act now')."
+            if "Contains suspicious URL" in indicators:
+                summary += " It embeds links that resemble phishing landing pages."
+            summary += " We recommend deleting this message and not clicking any embedded links."
+        else:
+            summary += " The content matches clean, standard personal/professional communications. The email lacks spam indicators and has normal character/casing distributions."
+
         return {
             "result": result,
             "confidence": confidence,
@@ -198,6 +212,7 @@ class SpamDetector:
             "indicators": indicators,
             "risk_score": float(round(spam_prob * 100, 2)),
             "recommendation": self._get_recommendation(is_spam, indicators),
+            "summary": summary,
         }
 
     def _get_indicators(self, text: str) -> list:

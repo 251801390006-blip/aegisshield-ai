@@ -148,6 +148,14 @@ async function analyzePassword() {
           </div>` : '').join('')}
         </div>
 
+        ${data.summary ? `
+        <div style="margin-top:1rem;margin-bottom:1rem;padding:0.85rem 1rem;background:var(--bg-secondary);border-radius:10px;border:1.5px solid var(--border-color);">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--neon-blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.35rem;">
+            🤖 <span>AI Threat Summary</span>
+          </div>
+          <p style="font-size:0.825rem;color:var(--text-secondary);margin:0;line-height:1.6;">${data.summary.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
+        </div>` : ''}
+
         ${recHTML ? `<div style="margin-top:0.75rem;padding:0.75rem;background:var(--bg-tertiary);border-radius:8px;border:1px solid var(--border-color);">
           <div style="font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Recommendations</div>
           ${recHTML}

@@ -60,6 +60,7 @@ def analyze():
         "spam_probability": result.get("spam_probability"),
         "ham_probability": result.get("ham_probability"),
         "indicators": result.get("indicators", []),
+        "summary": result.get("summary"),
     })
     db.session.add(scan)
     db.session.commit()

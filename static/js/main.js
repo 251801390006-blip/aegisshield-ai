@@ -75,6 +75,17 @@ function buildResultPanel(data, scanType) {
     <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.6;">${escapeHtml(data.recommendation)}</p>
   </div>` : '';
 
+  let aiSummaryHTML = '';
+  if (data.summary) {
+    const formattedSummary = data.summary.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    aiSummaryHTML = `<div style="margin-top:1rem;padding:0.85rem 1rem;background:var(--bg-secondary);border-radius:10px;border:1.5px solid var(--border-color);">
+      <div style="font-size:0.75rem;font-weight:700;color:var(--neon-blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.35rem;">
+        🤖 <span>AI Threat Summary</span>
+      </div>
+      <p style="font-size:0.825rem;color:var(--text-secondary);margin:0;line-height:1.6;">${formattedSummary}</p>
+    </div>`;
+  }
+
   const pdfBtn = data.scan_id ? `<a href="/reports/generate/${data.scan_id}" class="btn-outline-neon" style="font-size:0.8rem;padding:0.4rem 0.9rem;display:inline-flex;align-items:center;gap:0.4rem;" title="Download PDF Report">📄 PDF Report</a>` : '';
 
   return `<div class="result-panel ${panelClass} slide-up">
@@ -92,6 +103,7 @@ function buildResultPanel(data, scanType) {
       </div>
     </div>
     ${indicatorHTML}
+    ${aiSummaryHTML}
     ${recHTML}
     <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
       ${pdfBtn}

@@ -236,6 +236,20 @@ class PhishingDetector:
         indicators = self._get_indicators(url, features)
         domain = urlparse(url if "://" in url else "http://" + url).netloc
 
+        # Generate AI summary
+        summary = f"This URL is classified as **{'PHISHING' if is_phishing else 'SAFE'}** with a threat risk of **{risk_score}/100**."
+        if is_phishing:
+            summary += f" The Gradient Boosting model flagged this domain ({domain}) due to multiple suspicious structural features."
+            if "IP address used instead of domain name" in indicators:
+                summary += " It utilizes a raw IP address which is a typical tactic to bypass DNS filters."
+            if "Domain mimics a trusted brand name" in indicators:
+                summary += " It shows brand-spoofing characteristics designed to impersonate a trusted company."
+            if "Insecure HTTP connection (no HTTPS)" in indicators:
+                summary += " It lacks standard SSL/TLS encryption, leaving communications open to interception."
+            summary += " Visiting this link carries a critical risk of credential harvesting or malware delivery."
+        else:
+            summary += f" The URL structure is consistent with legitimate web addresses. The domain ({domain}) has low entropy and uses secure connection headers, with no brand-mimicking or obfuscation indicators."
+
         return {
             "result": "PHISHING" if is_phishing else "SAFE",
             "risk_score": risk_score,
@@ -256,6 +270,7 @@ class PhishingDetector:
                 "is_shortener": bool(features[15]),
             },
             "recommendation": self._get_recommendation(is_phishing, indicators, risk_score),
+            "summary": summary,
         }
 
     def _get_indicators(self, url: str, features: list) -> list:

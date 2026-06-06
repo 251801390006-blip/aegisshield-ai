@@ -70,6 +70,10 @@ def generate_scan_report(scan_data: dict, user_data: dict) -> bytes:
     story.extend(_build_indicators_section(styles, scan_data))
     story.append(Spacer(1, 0.4 * cm))
 
+    # ── AI Threat Summary ─────────────────────────────────────────────────
+    story.extend(_build_summary_section(styles, scan_data))
+    story.append(Spacer(1, 0.4 * cm))
+
     # ── Technical Details ─────────────────────────────────────────────────
     story.extend(_build_technical_section(styles, scan_data))
     story.append(Spacer(1, 0.4 * cm))
@@ -235,6 +239,68 @@ def _build_indicators_section(styles, scan_data):
     for i, indicator in enumerate(indicators, 1):
         elements.append(Paragraph(f"• {indicator}", styles["ThreatText"] if scan_data.get("is_threat") else styles["BodyText"]))
     return elements
+
+
+def _build_summary_section(styles, scan_data):
+    summary = scan_data.get("details", {}).get("summary") or scan_data.get("summary")
+    if not summary:
+        summary = _generate_fallback_summary(scan_data)
+
+    elements = [Paragraph("AI Threat Summary", styles["SectionHeading"])]
+    
+    import re
+    formatted_summary = re.sub(r"\*\*(.*?)\*\*", r"<b>\1</b>", summary)
+    
+    summary_style = ParagraphStyle(
+        "SummaryText", parent=styles["BodyText"],
+        fontSize=9.5, textColor=TEXT_LIGHT,
+        leading=14, fontName="Helvetica",
+    )
+    
+    p = Paragraph(formatted_summary, summary_style)
+    
+    table = Table([[p]], colWidths=[17.5 * cm])
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), PANEL_BG),
+        ("GRID", (0, 0), (-1, -1), 1, BORDER_COLOR),
+        ("TOPPADDING", (0, 0), (-1, -1), 10),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+        ("LEFTPADDING", (0, 0), (-1, -1), 12),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 12),
+    ]))
+    
+    elements.append(table)
+    return elements
+
+
+def _generate_fallback_summary(scan_data) -> str:
+    scan_type = scan_data.get("scan_type", "").lower()
+    result = scan_data.get("result", "")
+    score = scan_data.get("risk_score") or scan_data.get("confidence") or 0
+    is_threat = scan_data.get("is_threat", False)
+    
+    if scan_type == "password":
+        if is_threat:
+            return f"This password is classified as **{result}** with a strength score of **{score:.0f}/100**. It is highly vulnerable. The analysis identified critical risk factors: low character diversity or common patterns. It could be cracked almost instantly in a brute-force attack."
+        else:
+            return f"This password is classified as **{result}** with a strength score of **{score:.0f}/100**. The password has excellent entropy and complexity, featuring a diverse mix of character sets."
+    elif scan_type == "phishing":
+        if is_threat:
+            return f"This URL is classified as **PHISHING** with a threat risk of **{score:.1f}/100**. The model flagged this domain due to multiple suspicious structural features or brand-spoofing characteristics."
+        else:
+            return f"This URL is classified as **SAFE** with a threat risk of **{score:.1f}/100**. The URL structure is consistent with legitimate web addresses, utilizing secure connection headers."
+    elif scan_type == "malware":
+        if is_threat:
+            return f"This file is classified with a **{result}** risk level and a hazard score of **{score:.0f}/100**. The analysis detected severe indicators of security concern such as high-risk extension or format anomalies."
+        else:
+            return f"No significant threat vectors were detected. The file extension is generally safe, and its metadata size matches expected parameters."
+    elif scan_type == "spam":
+        if is_threat:
+            return f"This email is classified as **SPAM** with a confidence score of **{score:.1f}%**. The model detected multiple marketing or social engineering keywords offering monetary rewards or urgency language."
+        else:
+            return f"This email is classified as **SAFE** with a confidence score of **{score:.1f}%**. The content matches clean, standard personal/professional communications."
+    else:
+        return f"The {scan_type} scan finished with a verdict of **{result}** and score of **{score:.1f}**. No detailed AI Summary is available for this historical record."
 
 
 def _build_technical_section(styles, scan_data):

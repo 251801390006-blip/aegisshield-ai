@@ -57,6 +57,7 @@ def analyze():
         "length": result["length"],
         "crack_time": result["crack_time"],
         "characteristics": result.get("characteristics", {}),
+        "summary": result.get("summary"),
     })
     db.session.add(scan)
     db.session.commit()
