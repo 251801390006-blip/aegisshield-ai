@@ -62,6 +62,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--border-bright) var(--bg-primary);
+  font-size: 118%; /* Scale up all rem typography globally by 18% for high readability */
 }
 
 body {
