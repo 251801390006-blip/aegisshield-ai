@@ -87,24 +87,6 @@
       <div style="text-align:center;margin-top:1.5rem;font-size:0.875rem;color:var(--text-muted);">
         Don't have an account? <a href="{{ url_for('auth.register') }}" style="color:var(--neon-blue);font-weight:600;">Create one free</a>
       </div>
-
-      <!-- Demo credentials -->
-      <div style="margin-top:1.5rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;padding:0.875rem 1rem;">
-        <div style="font-size:0.75rem;font-weight:700;color:var(--text-bright);margin-bottom:0.4rem;display:flex;align-items:center;gap:0.35rem;">🧪 <span>Demo Accounts</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.50rem;margin-top:0.5rem;">
-          <button onclick="fillDemo('user')" class="btn-outline-neon w-100" style="font-size:0.75rem;padding:0.4rem 0.5rem;">
-            Fill Demo User
-          </button>
-          <button onclick="fillDemo('admin')" class="btn-outline-neon w-100" style="font-size:0.75rem;padding:0.4rem 0.5rem;">
-            Fill Demo Admin
-          </button>
-        </div>
-        <div style="margin-top:0.75rem;border-top:1px solid var(--border-color);padding-top:0.75rem;text-align:center;">
-          <a href="{{ url_for('auth.emergency_reset', secret='AegisReset2026') }}" class="btn btn-sm btn-outline-danger w-100" style="font-size:0.75rem;padding:0.4rem 0.5rem;font-weight:600;">
-            <i class="bi bi-trash3-fill me-1"></i>Reset Database (Clear Users)
-          </a>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -117,16 +99,6 @@ function togglePwd(fieldId, iconId) {
   const i = document.getElementById(iconId);
   if (f.type === 'password') { f.type = 'text'; i.className = 'bi bi-eye-slash'; }
   else { f.type = 'password'; i.className = 'bi bi-eye'; }
-}
-
-function fillDemo(role) {
-  if (role === 'admin') {
-    document.getElementById('email').value = 'admin@aegisshield.io';
-    document.getElementById('password').value = 'Admin@1234';
-  } else {
-    document.getElementById('email').value = 'demo@aegisshield.io';
-    document.getElementById('password').value = 'Demo@1234';
-  }
 }
 
 document.getElementById('loginForm').addEventListener('submit', () => {
