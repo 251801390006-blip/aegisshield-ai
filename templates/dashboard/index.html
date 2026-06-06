@@ -91,22 +91,22 @@
   <div class="glass-card p-4 fade-in">
     <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem;">Quick Scan</h3>
     <div style="display:flex;flex-direction:column;gap:0.6rem;">
-      <a href="{{ url_for('spam.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+      <a href="{{ url_for('spam.index') }}" class="d-flex align-items-center gap-3 p-3 glass-card spam-glow" style="text-decoration:none; border-radius:10px;">
         <span style="font-size:1.3rem;">📧</span>
         <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Spam Email Scanner</div><div style="font-size:0.75rem;color:var(--text-muted);">Naive Bayes + Logistic Regression</div></div>
         <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
       </a>
-      <a href="{{ url_for('phishing.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+      <a href="{{ url_for('phishing.index') }}" class="d-flex align-items-center gap-3 p-3 glass-card phishing-glow" style="text-decoration:none; border-radius:10px;">
         <span style="font-size:1.3rem;">🎣</span>
         <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Phishing URL Detector</div><div style="font-size:0.75rem;color:var(--text-muted);">Gradient Boosting · 20 features</div></div>
         <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
       </a>
-      <a href="{{ url_for('password.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+      <a href="{{ url_for('password.index') }}" class="d-flex align-items-center gap-3 p-3 glass-card password-glow" style="text-decoration:none; border-radius:10px;">
         <span style="font-size:1.3rem;">🔐</span>
         <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Password Strength Analyzer</div><div style="font-size:0.75rem;color:var(--text-muted);">Entropy + Pattern Detection</div></div>
         <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
       </a>
-      <a href="{{ url_for('malware.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+      <a href="{{ url_for('malware.index') }}" class="d-flex align-items-center gap-3 p-3 glass-card malware-glow" style="text-decoration:none; border-radius:10px;">
         <span style="font-size:1.3rem;">🦠</span>
         <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Malware Risk Analyzer</div><div style="font-size:0.75rem;color:var(--text-muted);">File signature · Metadata analysis</div></div>
         <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>

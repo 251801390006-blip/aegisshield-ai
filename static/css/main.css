@@ -927,3 +927,116 @@ input[type="checkbox"] {
 .strength-Strong { background: var(--neon-blue); }
 .strength-Very-Strong { background: var(--neon-green); }
 
+/* ── Premium Cyber-Aesthetics & Glows (Added) ─────────────────── */
+
+:root {
+  --neon-magenta: #ff2d55;
+  --gradient-cyber: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+  --gradient-danger: linear-gradient(135deg, var(--danger) 0%, #ff2d55 100%);
+  --gradient-success: linear-gradient(135deg, var(--success) 0%, var(--neon-green) 100%);
+  --gradient-warning: linear-gradient(135deg, var(--warning) 0%, #ff5e00 100%);
+}
+
+/* Gradient Text */
+.text-gradient-cyber {
+  background: linear-gradient(135deg, var(--neon-blue), #4de8ff, var(--neon-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glowing buttons */
+.btn-neon {
+  background: var(--gradient-cyber) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.25);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.btn-neon:hover {
+  box-shadow: 0 8px 30px rgba(191, 90, 242, 0.4), 0 0 10px rgba(0, 212, 255, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-outline-neon {
+  border-width: 1.5px;
+  background: rgba(0, 212, 255, 0.03);
+}
+
+.btn-outline-neon:hover {
+  background: rgba(0, 212, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Scanning laser line animation */
+.scan-line-animation {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+  box-shadow: 0 0 12px var(--neon-blue);
+  animation: scanLaser 4s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes scanLaser {
+  0% { top: 0%; opacity: 0; }
+  5% { opacity: 0.8; }
+  95% { opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Individual Module Glow Classes for Cards */
+.glass-card.spam-glow:hover {
+  border-color: rgba(255, 152, 0, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(255, 152, 0, 0.15), var(--shadow-card), 0 0 8px rgba(255,152,0,0.1);
+  transform: translateY(-4px);
+}
+
+.glass-card.phishing-glow:hover {
+  border-color: rgba(255, 55, 95, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(255, 55, 95, 0.15), var(--shadow-card), 0 0 8px rgba(255,55,95,0.1);
+  transform: translateY(-4px);
+}
+
+.glass-card.password-glow:hover {
+  border-color: rgba(0, 212, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15), var(--shadow-card), 0 0 8px rgba(0,212,255,0.1);
+  transform: translateY(-4px);
+}
+
+.glass-card.malware-glow:hover {
+  border-color: rgba(191, 90, 242, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(191, 90, 242, 0.15), var(--shadow-card), 0 0 8px rgba(191,90,242,0.1);
+  transform: translateY(-4px);
+}
+
+/* Enhancing standard stat cards with premium gradients */
+.stat-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.03), transparent), var(--bg-card);
+}
+
+.stat-card.stat-blue {
+  border-bottom: 2px solid var(--neon-blue);
+}
+.stat-card.stat-green {
+  border-bottom: 2px solid var(--neon-green);
+}
+.stat-card.stat-red {
+  border-bottom: 2px solid var(--danger);
+}
+.stat-card.stat-purple {
+  border-bottom: 2px solid var(--neon-purple);
+}
+.stat-card.stat-orange {
+  border-bottom: 2px solid var(--warning);
+}
+
+.stat-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 8px rgba(255,255,255,0.02);
+}
+
+
