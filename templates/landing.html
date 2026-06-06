@@ -168,7 +168,7 @@
 <!-- ── Features Section ────────────────────────────────────────── -->
 <section id="features" style="padding:5rem 0;border-top:1px solid var(--border-color);">
   <div class="container">
-    <div class="text-center mb-5">
+    <div class="text-center mb-5 reveal">
       <div class="d-inline-block px-3 py-1 rounded-pill mb-3" style="background:var(--neon-blue-dim);border:1px solid rgba(0,212,255,0.2);">
         <span style="font-size:0.8rem;font-weight:600;color:var(--neon-blue);">Detection Modules</span>
       </div>
@@ -176,7 +176,7 @@
       <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comprehensive threat detection powered by machine learning algorithms trained on millions of real-world samples.</p>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 reveal">
       <!-- Spam -->
       <div class="col-md-6 col-lg-3">
         <div class="glass-card spam-glow p-4 h-100 text-center">
@@ -232,11 +232,11 @@
 <!-- ── Statistics Section ──────────────────────────────────────── -->
 <section id="stats" style="padding:5rem 0;border-top:1px solid var(--border-color);background:linear-gradient(180deg,transparent,rgba(0,212,255,0.02),transparent);">
   <div class="container">
-    <div class="text-center mb-5">
+    <div class="text-center mb-5 reveal">
       <h2 style="font-size:2.5rem;font-weight:800;margin-bottom:0.75rem;">Trusted Platform Statistics</h2>
       <p style="color:var(--text-secondary);">Numbers that demonstrate real-world protection impact.</p>
     </div>
-    <div class="row g-4 text-center">
+    <div class="row g-4 text-center reveal">
       <div class="col-6 col-md-3">
         <div class="glass-card p-4">
           <div style="font-size:2.8rem;font-weight:900;color:var(--neon-blue);font-family:var(--font-mono);" data-count="99.2">0</div>
@@ -268,11 +268,11 @@
 <!-- ── How It Works ────────────────────────────────────────────── -->
 <section id="how-it-works" style="padding:5rem 0;border-top:1px solid var(--border-color);">
   <div class="container">
-    <div class="text-center mb-5">
+    <div class="text-center mb-5 reveal">
       <h2 style="font-size:2.5rem;font-weight:800;margin-bottom:0.75rem;">How AegisShield Works</h2>
       <p style="color:var(--text-secondary);">Three simple steps to advanced threat detection.</p>
     </div>
-    <div class="row g-4">
+    <div class="row g-4 reveal">
       <div class="col-md-4">
         <div class="glass-card p-4 text-center h-100">
           <div style="width:60px;height:60px;background:var(--neon-blue-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:var(--neon-blue);margin:0 auto 1.25rem;border:2px solid rgba(0,212,255,0.2);">1</div>
@@ -301,10 +301,7 @@
 <!-- ── Tech Stack ──────────────────────────────────────────────── -->
 <section style="padding:4rem 0;border-top:1px solid var(--border-color);background:var(--bg-secondary);">
   <div class="container">
-    <div class="text-center mb-4">
-      <p style="font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">Built With Enterprise-Grade Technologies</p>
-    </div>
-    <div class="d-flex flex-wrap gap-3 justify-content-center">
+    <div class="d-flex flex-wrap gap-3 justify-content-center reveal">
       {% for tech in [('🐍','Python 3.11'),('⚗️','Flask 3.x'),('🤖','Scikit-Learn'),('📊','Chart.js'),('🎨','Bootstrap 5'),('🔒','SQLAlchemy'),('📄','ReportLab'),('☁️','Render / Vercel')] %}
       <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:0.6rem 1rem;display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:500;color:var(--text-secondary);">
         <span>{{ tech[0] }}</span> {{ tech[1] }}
@@ -317,7 +314,7 @@
 <!-- ── CTA Section ─────────────────────────────────────────────── -->
 <section style="padding:6rem 0;border-top:1px solid var(--border-color);">
   <div class="container text-center">
-    <div class="glass-card p-5" style="max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(191,90,242,0.05));">
+    <div class="glass-card p-5 reveal" style="max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(191,90,242,0.05));">
       <div style="font-size:3rem;margin-bottom:1rem;">🛡</div>
       <h2 style="font-size:2.2rem;font-weight:800;margin-bottom:1rem;">Start Protecting Your Digital Life</h2>
       <p style="color:var(--text-secondary);max-width:500px;margin:0 auto 2rem;">Join thousands of security-conscious users who rely on AegisShield AI to detect and neutralize cyber threats.</p>
@@ -341,7 +338,7 @@
         <div style="display:flex;align-items:center;gap:0.5rem;font-weight:800;font-size:1rem;color:var(--text-bright);margin-bottom:0.25rem;">
           🛡 AegisShield<span style="color:var(--neon-blue);">AI</span>
         </div>
-        <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">AI-Powered Cyber Crime Detection Platform &copy; 2025</p>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">AI-Powered Cyber Crime Detection Platform &copy; 2026</p>
       </div>
       <div class="col-md-6 text-md-end mt-3 mt-md-0">
         <div class="d-flex gap-3 justify-content-md-end flex-wrap">
@@ -468,6 +465,18 @@ if (rotator) {
     }, 200);
   }, 3000);
 }
+
+// Scroll Reveal Observer
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
 </script>
 <style>
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
