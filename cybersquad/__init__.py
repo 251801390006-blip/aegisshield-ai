@@ -109,24 +109,38 @@ def _seed_demo_data(app):
         return
     from cybersquad.models.user import User
     
-    # Seed demo user
-    if not User.query.filter_by(email="demo@cybersquad.io").first():
-        demo = User(
-            username="demo_user",
-            email="demo@cybersquad.io",
-            role="user",
-        )
-        demo.set_password("Demo@1234")
-        db.session.add(demo)
-        
-    # Seed admin user
-    if not User.query.filter_by(email="admin@cybersquad.io").first():
-        admin = User(
-            username="admin_user",
-            email="admin@cybersquad.io",
-            role="admin",
-        )
-        admin.set_password("Admin@1234")
-        db.session.add(admin)
-        
+    # Check for existing demo user by email or username
+    demo_by_email = User.query.filter_by(email="demo@cybersquad.io").first()
+    demo_by_username = User.query.filter_by(username="demo_user").first()
+    
+    if not demo_by_email:
+        if demo_by_username:
+            demo_by_username.email = "demo@cybersquad.io"
+            demo_by_username.set_password("Demo@1234")
+        else:
+            demo = User(
+                username="demo_user",
+                email="demo@cybersquad.io",
+                role="user",
+            )
+            demo.set_password("Demo@1234")
+            db.session.add(demo)
+            
+    # Check for existing admin user by email or username
+    admin_by_email = User.query.filter_by(email="admin@cybersquad.io").first()
+    admin_by_username = User.query.filter_by(username="admin_user").first()
+    
+    if not admin_by_email:
+        if admin_by_username:
+            admin_by_username.email = "admin@cybersquad.io"
+            admin_by_username.set_password("Admin@1234")
+        else:
+            admin = User(
+                username="admin_user",
+                email="admin@cybersquad.io",
+                role="admin",
+            )
+            admin.set_password("Admin@1234")
+            db.session.add(admin)
+            
     db.session.commit()
