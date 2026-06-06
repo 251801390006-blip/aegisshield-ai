@@ -91,3 +91,30 @@ class TestProtectedRoutes:
         assert resp.status_code == 200
         data = resp.get_json()
         assert data['status'] == 'ok'
+
+
+class TestNewFeatures:
+    def test_forgot_password_auto_registers(self, client):
+        email = "new_tester@example.com"
+        resp = client.post('/auth/forgot-password', data={
+            'email': email,
+        }, follow_redirects=True)
+        assert resp.status_code == 200
+        assert b'OTP Code Generated' in resp.data
+        
+        # Verify the user was created in DB
+        from aegisshield.models.user import User
+        user = User.query.filter_by(email=email).first()
+        assert user is not None
+        assert user.username == "new_tester"
+
+    def test_account_switching_demo(self, client):
+        resp = client.get('/auth/switch-account/demo', follow_redirects=True)
+        assert resp.status_code == 200
+        assert b'demo_user' in resp.data or b'Switched account' in resp.data
+
+    def test_account_switching_admin(self, client):
+        resp = client.get('/auth/switch-account/admin', follow_redirects=True)
+        assert resp.status_code == 200
+        assert b'admin_user' in resp.data or b'Switched account' in resp.data
+

@@ -92,6 +92,23 @@
     About
   </a>
 
+  <!-- Account Switcher inside Dashboard -->
+  <div style="padding:0.75rem 0.75rem;background:var(--bg-secondary);border-radius:10px;border:1px solid var(--border-color);margin:1rem 0.75rem 0.5rem;">
+    <div style="font-size:0.65rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.35rem;">
+      <i class="bi bi-arrow-left-right text-info"></i>
+      <span>Quick Switch Role</span>
+    </div>
+    {% if current_user.role == 'admin' %}
+      <a href="{{ url_for('auth.switch_account', role='demo') }}" class="btn-outline-neon w-100 py-1.5 px-2" style="font-size:0.75rem;display:flex;align-items:center;justify-content:center;gap:0.35rem;border-radius:6px;text-decoration:none;">
+        <span>👤 Switch to Demo User</span>
+      </a>
+    {% else %}
+      <a href="{{ url_for('auth.switch_account', role='admin') }}" class="btn-outline-neon w-100 py-1.5 px-2" style="font-size:0.75rem;display:flex;align-items:center;justify-content:center;gap:0.35rem;border-radius:6px;text-decoration:none;border-color:rgba(255, 75, 75, 0.3);">
+        <span>🛡️ Switch to Admin</span>
+      </a>
+    {% endif %}
+  </div>
+
   <!-- User card at bottom -->
   <div style="margin-top:auto;padding-top:1rem;border-top:1px solid var(--border-color);">
     <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0.75rem;">

@@ -82,38 +82,53 @@ def forgot_password():
 
     form = ForgotPasswordForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data.strip().lower()).first()
-        if user:
-            # Generate 6-digit OTP code
-            otp_code = str(random.randint(100000, 999999))
-            
-            # Delete any existing OTP records for this email
-            PasswordResetOTP.query.filter_by(email=user.email).delete()
-            
-            # Create new OTP record (expires in 15 minutes)
-            expires_at = datetime.utcnow() + timedelta(minutes=15)
-            otp_record = PasswordResetOTP(
-                email=user.email,
-                otp_code=otp_code,
-                expires_at=expires_at
+        email = form.email.data.strip().lower()
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            # Auto-register unregistered email address on-the-fly for testing/convenience
+            base_username = email.split('@')[0]
+            username = base_username
+            counter = 1
+            while User.query.filter_by(username=username).first():
+                username = f"{base_username}{counter}"
+                counter += 1
+            user = User(
+                username=username,
+                email=email,
+                role="user"
             )
-            db.session.add(otp_record)
+            user.set_password("TempPassword@1234")
+            db.session.add(user)
             db.session.commit()
-            
-            # Send OTP email
-            sent = _send_reset_otp_email(user, otp_code)
-            
-            return render_template(
-                "auth/forgot_password.html",
-                form=form,
-                title="Forgot Password",
-                success=True,
-                otp_code=otp_code,
-                email=user.email,
-                sent=sent
-            )
-        else:
-            form.email.errors.append("This email address is not registered in our system.")
+
+        # Generate 6-digit OTP code
+        otp_code = str(random.randint(100000, 999999))
+        
+        # Delete any existing OTP records for this email
+        PasswordResetOTP.query.filter_by(email=user.email).delete()
+        
+        # Create new OTP record (expires in 15 minutes)
+        expires_at = datetime.utcnow() + timedelta(minutes=15)
+        otp_record = PasswordResetOTP(
+            email=user.email,
+            otp_code=otp_code,
+            expires_at=expires_at
+        )
+        db.session.add(otp_record)
+        db.session.commit()
+        
+        # Send OTP email
+        sent = _send_reset_otp_email(user, otp_code)
+        
+        return render_template(
+            "auth/forgot_password.html",
+            form=form,
+            title="Forgot Password",
+            success=True,
+            otp_code=otp_code,
+            email=user.email,
+            sent=sent
+        )
 
     return render_template("auth/forgot_password.html", form=form, title="Forgot Password")
 
@@ -166,6 +181,58 @@ def reset_password():
         return redirect(url_for("auth.login"))
 
     return render_template("auth/reset_password.html", form=form, title="Reset Password")
+
+
+# ── Account Switching ──────────────────────────────────────────────────────────
+
+@auth_bp.route("/switch-account/<role>", methods=["GET", "POST"])
+def switch_account(role):
+    # Log out current user
+    if current_user.is_authenticated:
+        logout_user()
+    
+    # Determine target email based on role
+    if role == "admin":
+        email = "admin@aegisshield.io"
+    elif role == "demo":
+        email = "demo@aegisshield.io"
+    else:
+        flash("Invalid role for quick access.", "danger")
+        return redirect(url_for("auth.login"))
+        
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        # Seed users if they are missing
+        from aegisshield.__init__ import _seed_demo_data
+        from flask import current_app
+        _seed_demo_data(current_app)
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            if role == "admin":
+                user = User(
+                    username="admin_user",
+                    email=email,
+                    role="admin"
+                )
+                user.set_password("Admin@1234")
+            else:
+                user = User(
+                    username="demo_user",
+                    email=email,
+                    role="user"
+                )
+                user.set_password("Demo@1234")
+            db.session.add(user)
+            db.session.commit()
+        
+    if user:
+        login_user(user)
+        user.update_last_login()
+        flash(f"Switched account to {user.username} ({user.role.capitalize()})", "success")
+        return redirect(url_for("dashboard.index"))
+        
+    flash("Demo accounts could not be loaded. Please run DB reset.", "danger")
+    return redirect(url_for("auth.login"))
 
 
 # ── Emergency Reset ───────────────────────────────────────────────────────────

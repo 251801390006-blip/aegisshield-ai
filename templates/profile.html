@@ -64,7 +64,7 @@
     </div>
 
     <!-- Change Password -->
-    <div class="glass-card p-4 fade-in">
+    <div id="change-password" class="glass-card p-4 fade-in">
       <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem;color:var(--neon-blue);">Change Password</h3>
       <form method="POST" action="{{ url_for('profile.change_password') }}">
         {{ password_form.hidden_tag() }}
