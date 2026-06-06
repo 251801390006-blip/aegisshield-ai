@@ -179,12 +179,12 @@ class SpamDetector:
         lr_proba = self._lr_pipeline.predict_proba([text])[0]
 
         # Ensemble average
-        spam_prob = (nb_proba[1] + lr_proba[1]) / 2.0
-        ham_prob = 1.0 - spam_prob
+        spam_prob = float((nb_proba[1] + lr_proba[1]) / 2.0)
+        ham_prob = float(1.0 - spam_prob)
 
-        is_spam = spam_prob >= 0.5
+        is_spam = bool(spam_prob >= 0.5)
         result = "SPAM" if is_spam else "SAFE"
-        confidence = round((spam_prob if is_spam else ham_prob) * 100, 2)
+        confidence = float(round((spam_prob if is_spam else ham_prob) * 100, 2))
 
         # Indicator flags
         indicators = self._get_indicators(text)
@@ -192,11 +192,11 @@ class SpamDetector:
         return {
             "result": result,
             "confidence": confidence,
-            "spam_probability": round(spam_prob * 100, 2),
-            "ham_probability": round(ham_prob * 100, 2),
+            "spam_probability": float(round(spam_prob * 100, 2)),
+            "ham_probability": float(round(ham_prob * 100, 2)),
             "is_threat": is_spam,
             "indicators": indicators,
-            "risk_score": round(spam_prob * 100, 2),
+            "risk_score": float(round(spam_prob * 100, 2)),
             "recommendation": self._get_recommendation(is_spam, indicators),
         }
 

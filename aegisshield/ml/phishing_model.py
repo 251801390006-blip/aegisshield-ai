@@ -229,9 +229,9 @@ class PhishingDetector:
         features = extract_url_features(url)
         X = np.array(features).reshape(1, -1)
         proba = self._model.predict_proba(X)[0]
-        phishing_prob = proba[1]
-        is_phishing = phishing_prob >= 0.5
-        risk_score = round(phishing_prob * 100, 2)
+        phishing_prob = float(proba[1])
+        is_phishing = bool(phishing_prob >= 0.5)
+        risk_score = float(round(phishing_prob * 100, 2))
 
         indicators = self._get_indicators(url, features)
         domain = urlparse(url if "://" in url else "http://" + url).netloc
@@ -239,19 +239,19 @@ class PhishingDetector:
         return {
             "result": "PHISHING" if is_phishing else "SAFE",
             "risk_score": risk_score,
-            "phishing_probability": round(phishing_prob * 100, 2),
-            "safe_probability": round((1 - phishing_prob) * 100, 2),
+            "phishing_probability": float(round(phishing_prob * 100, 2)),
+            "safe_probability": float(round((1 - phishing_prob) * 100, 2)),
             "is_threat": is_phishing,
             "domain": domain,
             "indicators": indicators,
             "features": {
-                "url_length": features[0],
-                "domain_length": features[1],
+                "url_length": int(features[0]),
+                "domain_length": int(features[1]),
                 "has_ip": bool(features[5]),
                 "uses_http": bool(features[6]),
                 "suspicious_tld": bool(features[9]),
-                "phishing_keywords": features[10],
-                "entropy": round(features[12], 2),
+                "phishing_keywords": int(features[10]),
+                "entropy": float(round(features[12], 2)),
                 "mimics_brand": bool(features[16]),
                 "is_shortener": bool(features[15]),
             },
