@@ -69,8 +69,9 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
+  font-size: 1.05rem; /* Comfortably larger base font size */
 }
 
 /* Scrollbar */
@@ -161,8 +162,8 @@ code, pre, .mono { font-family: var(--font-mono); }
   border-radius: var(--radius-md);
   font-weight: 600;
   font-family: var(--font-sans);
-  padding: 0.6rem 1.4rem;
-  font-size: 0.875rem;
+  padding: 0.75rem 1.55rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all var(--transition);
   display: inline-flex;
@@ -187,8 +188,8 @@ code, pre, .mono { font-family: var(--font-mono); }
   border: 1px solid #d1d5db;
   border-radius: var(--radius-md);
   font-weight: 500;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.875rem;
+  padding: 0.75rem 1.55rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all var(--transition);
   display: inline-flex;
@@ -211,8 +212,8 @@ code, pre, .mono { font-family: var(--font-mono); }
   border: 1px solid #ef4444;
   border-radius: var(--radius-md);
   font-weight: 600;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.875rem;
+  padding: 0.75rem 1.55rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all var(--transition);
   display: inline-flex;
@@ -362,26 +363,26 @@ code, pre, .mono { font-family: var(--font-mono); }
   box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
 }
 
-.sidebar-brand-text { font-weight: 800; font-size: 1.1rem; color: var(--text-bright); }
+.sidebar-brand-text { font-weight: 800; font-size: 1.35rem; color: var(--text-bright); }
 .sidebar-brand-text span { color: var(--neon-blue); }
 
 .sidebar-section-label {
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 1rem 0.75rem 0.25rem;
+  color: var(--text-secondary);
+  padding: 1.25rem 0.75rem 0.35rem;
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.55rem 0.75rem;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: all var(--transition);
   border: 1px solid transparent;
@@ -404,16 +405,16 @@ code, pre, .mono { font-family: var(--font-mono); }
 .sidebar-link .link-icon {
   width: 20px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
 }
 
 .sidebar-link .link-badge {
   margin-left: auto;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   background: var(--neon-blue-dim);
   color: var(--neon-blue);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 10px;
   font-weight: 600;
 }
@@ -481,9 +482,9 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 .stat-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -493,9 +494,9 @@ code, pre, .mono { font-family: var(--font-mono); }
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -573,9 +574,9 @@ code, pre, .mono { font-family: var(--font-mono); }
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   color: var(--text-primary);
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.25rem;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   transition: all var(--transition);
   width: 100%;
 }
@@ -592,14 +593,14 @@ code, pre, .mono { font-family: var(--font-mono); }
 
 .form-control-cybersquad.textarea {
   resize: vertical;
-  min-height: 140px;
+  min-height: 150px;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 
 .form-label-cybersquad {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -611,23 +612,23 @@ code, pre, .mono { font-family: var(--font-mono); }
 .table-cybersquad {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .table-cybersquad thead th {
   background: var(--bg-secondary);
-  color: var(--text-muted);
-  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.15rem;
   border-bottom: 1px solid var(--border-color);
   white-space: nowrap;
 }
 
 .table-cybersquad tbody td {
-  padding: 0.85rem 1rem;
+  padding: 1rem 1.15rem;
   border-bottom: 1px solid rgba(48, 54, 61, 0.5);
   color: var(--text-primary);
   vertical-align: middle;
@@ -758,14 +759,14 @@ code, pre, .mono { font-family: var(--font-mono); }
 
 /* ── Alerts ────────────────────────────────────────────────────── */
 .alert-cybersquad {
-  padding: 0.85rem 1.25rem;
+  padding: 1rem 1.5rem;
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  font-size: 1rem;
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
   border: 1px solid;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .alert-cybersquad.success { background: var(--success-dim); border-color: rgba(0,204,102,0.3); color: var(--success); }
@@ -779,15 +780,15 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 .page-title {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text-bright);
   margin-bottom: 0.25rem;
 }
 
 .page-subtitle {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+  font-size: 1.05rem;
+  color: var(--text-secondary);
 }
 
 .page-header-divider {
@@ -847,8 +848,8 @@ code, pre, .mono { font-family: var(--font-mono); }
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 0.85rem 1.25rem;
-  font-size: 0.875rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
   color: var(--text-primary);
   box-shadow: var(--shadow-deep);
   display: flex;
@@ -856,7 +857,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   gap: 0.75rem;
   pointer-events: auto;
   animation: toastSlide 0.3s ease;
-  max-width: 360px;
+  max-width: 380px;
 }
 
 @keyframes toastSlide {
