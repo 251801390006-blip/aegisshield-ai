@@ -1,5 +1,5 @@
 /**
- * AegisShield AI – Password Analyzer JavaScript
+ * Cyber Squad AI – Password Analyzer JavaScript
  */
 
 const STRENGTH_MAP = {

@@ -1,5 +1,5 @@
 /**
- * AegisShield AI – Main JavaScript Utilities
+ * Cyber Squad AI – Main JavaScript Utilities
  */
 
 'use strict';
@@ -148,5 +148,5 @@ document.querySelectorAll('.glass-card').forEach(card => {
   });
 });
 
-console.log('%c🛡 AegisShield AI', 'color:#00d4ff;font-size:16px;font-weight:800;');
+console.log('%c🛡 Cyber Squad AI', 'color:#00d4ff;font-size:16px;font-weight:800;');
 console.log('%cCybersecurity Platform v1.0.0', 'color:#8b949e;font-size:12px;');

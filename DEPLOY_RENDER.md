@@ -1,4 +1,4 @@
-# 🚀 Deploy AegisShield AI to Render (Complete Guide)
+# 🚀 Deploy Cyber Squad AI to Render (Complete Guide)
 
 ## Prerequisites
 - GitHub account with this project pushed
@@ -9,8 +9,8 @@
 ```bash
 git init
 git add .
-git commit -m "Initial commit: AegisShield AI"
-git remote add origin https://github.com/YOUR_USERNAME/aegisshield-ai.git
+git commit -m "Initial commit: Cyber Squad AI"
+git remote add origin https://github.com/YOUR_USERNAME/cybersquad-ai.git
 git push -u origin main
 ```
 
@@ -21,11 +21,11 @@ git push -u origin main
 
 ## Step 3: Deploy Web Service
 1. Click "New +" → "Web Service"
-2. Connect your `aegisshield-ai` repository
+2. Connect your `cybersquad-ai` repository
 3. Render will auto-detect the `render.yaml` file
 
 **Manual Settings (if not using render.yaml):**
-- **Name:** aegisshield-ai
+- **Name:** cybersquad-ai
 - **Runtime:** Python 3
 - **Build Command:** `pip install -r requirements.txt`
 - **Start Command:** `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
@@ -41,7 +41,7 @@ In the Render dashboard → Environment:
 
 ## Step 5: Add PostgreSQL Database
 1. Click "New +" → "PostgreSQL"
-2. Name: `aegisshield-db`
+2. Name: `cybersquad-db`
 3. Plan: Free
 4. Copy the "Internal Database URL"
 5. Paste as `DATABASE_URL` in your web service environment
@@ -49,7 +49,7 @@ In the Render dashboard → Environment:
 ## Step 6: Deploy
 1. Click "Create Web Service"
 2. Wait 2-5 minutes for the build
-3. Your site will be live at: `https://aegisshield-ai.onrender.com`
+3. Your site will be live at: `https://cybersquad-ai.onrender.com`
 
 ## Troubleshooting
 
@@ -78,5 +78,5 @@ https://your-app.onrender.com/api/v1/health
 ```
 Should return:
 ```json
-{"status": "ok", "service": "AegisShield AI", "version": "1.0.0"}
+{"status": "ok", "service": "Cyber Squad AI", "version": "1.0.0"}
 ```

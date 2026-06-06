@@ -1,5 +1,5 @@
 """
-AegisShield AI – Configuration Module
+Cyber Squad AI – Configuration Module
 Supports Development (SQLite), Testing, and Production (PostgreSQL) environments.
 """
 
@@ -11,7 +11,7 @@ class Config:
     """Base configuration with shared settings."""
 
     # ── Security ────────────────────────────────────────────────────────────
-    SECRET_KEY = os.environ.get("SECRET_KEY", "aegisshield-dev-secret-key-change-in-production")
+    SECRET_KEY = os.environ.get("SECRET_KEY", "cybersquad-dev-secret-key-change-in-production")
     WTF_CSRF_ENABLED = True
     WTF_CSRF_TIME_LIMIT = 3600
 
@@ -34,7 +34,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME", "")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "")
-    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER", "noreply@aegisshield.io")
+    MAIL_DEFAULT_SENDER = os.environ.get("MAIL_DEFAULT_SENDER", "noreply@cybersquad.io")
 
     # ── File Upload ───────────────────────────────────────────────────────
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024   # 16 MB
@@ -45,10 +45,10 @@ class Config:
     RATELIMIT_STORAGE_URL = "memory://"
 
     # ── ML Model Paths ─────────────────────────────────────────────────────
-    ML_MODELS_DIR = os.path.join(os.path.dirname(__file__), "aegisshield", "ml", "saved_models")
+    ML_MODELS_DIR = os.path.join(os.path.dirname(__file__), "cybersquad", "ml", "saved_models")
 
     # ── App Metadata ───────────────────────────────────────────────────────
-    APP_NAME = "AegisShield AI"
+    APP_NAME = "Cyber Squad AI"
     APP_VERSION = "1.0.0"
     APP_DESCRIPTION = "AI-Powered Cyber Crime Detection Platform"
 
@@ -59,7 +59,7 @@ class DevelopmentConfig(Config):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL",
-        "sqlite:///" + os.path.join(os.path.dirname(__file__), "aegisshield_dev.db"),
+        "sqlite:///" + os.path.join(os.path.dirname(__file__), "cybersquad_dev.db"),
     )
 
 
@@ -82,7 +82,7 @@ class ProductionConfig(Config):
     _db_url = os.environ.get("DATABASE_URL", "")
     if _db_url.startswith("postgres://"):
         _db_url = _db_url.replace("postgres://", "postgresql://", 1)
-    SQLALCHEMY_DATABASE_URI = _db_url or "sqlite:///aegisshield_prod.db"
+    SQLALCHEMY_DATABASE_URI = _db_url or "sqlite:///cybersquad_prod.db"
 
     RATELIMIT_STORAGE_URL = os.environ.get("REDIS_URL", "memory://")
 

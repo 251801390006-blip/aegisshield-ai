@@ -1,5 +1,5 @@
 """
-AegisShield AI – Application Entry Point
+Cyber Squad AI – Application Entry Point
 """
 
 import os
@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from aegisshield import create_app
+from cybersquad import create_app
 
 app = create_app()
 

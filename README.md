@@ -1,4 +1,4 @@
-# 🛡 AegisShield AI – Cyber Crime Detection Platform
+# 🛡 Cyber Squad AI – Cyber Crime Detection Platform
 
 > **AI-Powered Cybersecurity SaaS Platform** | Full-Stack Flask Application | Production-Ready Internship Project
 
@@ -16,7 +16,7 @@
 **Deployment:** `https://your-app.onrender.com`
 
 **Demo Account:**
-- Email: `demo@aegisshield.io`
+- Email: `demo@cybersquad.io`
 - Password: `Demo@1234`
 
 ---
@@ -66,14 +66,14 @@
 ## 🏗 Architecture
 
 ```
-aegisshield/
+cybersquad/
 ├── app.py                    # Application entry point
 ├── config.py                 # Dev/Test/Prod configurations
 ├── requirements.txt
 ├── Procfile                  # Gunicorn deployment
 ├── render.yaml               # Render deployment config
 │
-├── aegisshield/              # Main application package
+├── cybersquad/              # Main application package
 │   ├── __init__.py           # App factory
 │   ├── extensions.py         # Flask extensions
 │   ├── forms.py              # WTForms definitions
@@ -125,8 +125,8 @@ aegisshield/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/aegisshield-ai.git
-cd aegisshield-ai
+git clone https://github.com/yourusername/cybersquad-ai.git
+cd cybersquad-ai
 
 # Create virtual environment
 python -m venv venv
@@ -285,7 +285,7 @@ Your app will be live at: `https://your-service-name.onrender.com`
 
 ## 📝 Internship Project Description
 
-**AegisShield AI** is a production-ready cybersecurity SaaS platform demonstrating:
+**Cyber Squad AI** is a production-ready cybersecurity SaaS platform demonstrating:
 
 - **Full-Stack Development**: Complete Flask application with blueprints, models, forms, and templates
 - **Machine Learning**: Ensemble spam detection (98% accuracy), URL phishing classification (20+ features), password entropy analysis

@@ -1,5 +1,5 @@
 /* ============================================================
-   AegisShield AI – Main CSS Design System
+   Cyber Squad AI – Main CSS Design System
    Dark cybersecurity theme with glassmorphism & neon accents
    ============================================================ */
 
@@ -329,7 +329,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 /* ── Sidebar ─────────────────────────────────────────────────── */
 .sidebar {
   width: 260px;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-color);
   padding: 1.5rem 1rem;

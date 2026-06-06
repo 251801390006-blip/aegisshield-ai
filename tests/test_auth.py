@@ -1,10 +1,10 @@
 """
-AegisShield AI – Authentication Tests
+Cyber Squad AI – Authentication Tests
 """
 
 import pytest
-from aegisshield import create_app
-from aegisshield.extensions import db
+from cybersquad import create_app
+from cybersquad.extensions import db
 from config import TestingConfig
 
 
@@ -103,7 +103,7 @@ class TestNewFeatures:
         assert b'OTP Code Generated' in resp.data
         
         # Verify the user was created in DB
-        from aegisshield.models.user import User
+        from cybersquad.models.user import User
         user = User.query.filter_by(email=email).first()
         assert user is not None
         assert user.username == "new_tester"

@@ -1,5 +1,5 @@
 /**
- * AegisShield AI – Phishing URL Detection JavaScript
+ * Cyber Squad AI – Phishing URL Detection JavaScript
  */
 
 async function analyzePhishing() {

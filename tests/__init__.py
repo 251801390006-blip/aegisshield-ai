@@ -1,1 +1,1 @@
-"""AegisShield AI – Tests Package"""
+"""Cyber Squad AI – Tests Package"""

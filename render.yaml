@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: aegisshield-ai
+    name: cybersquad-ai
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
@@ -12,12 +12,12 @@ services:
         generateValue: true
       - key: DATABASE_URL
         fromDatabase:
-          name: aegisshield-db
+          name: cybersquad-db
           property: connectionString
       - key: PYTHON_VERSION
         value: 3.11.9
 
 databases:
-  - name: aegisshield-db
-    databaseName: aegisshield
+  - name: cybersquad-db
+    databaseName: cybersquad
     plan: free

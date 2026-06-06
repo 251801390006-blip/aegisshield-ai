@@ -1,5 +1,5 @@
 /**
- * AegisShield AI – Spam Detection JavaScript
+ * Cyber Squad AI – Spam Detection JavaScript
  */
 
 const SPAM_SAMPLE = `Congratulations! You've been selected as our lucky winner! 

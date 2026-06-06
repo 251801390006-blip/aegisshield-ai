@@ -1,12 +1,12 @@
 """
-AegisShield AI – ML Model Unit Tests
+Cyber Squad AI – ML Model Unit Tests
 """
 
 import pytest
-from aegisshield.ml.spam_model import get_spam_detector
-from aegisshield.ml.phishing_model import get_phishing_detector, extract_url_features
-from aegisshield.services.password_service import analyze_password
-from aegisshield.services.malware_service import analyze_file
+from cybersquad.ml.spam_model import get_spam_detector
+from cybersquad.ml.phishing_model import get_phishing_detector, extract_url_features
+from cybersquad.services.password_service import analyze_password
+from cybersquad.services.malware_service import analyze_file
 
 
 class TestSpamDetector:

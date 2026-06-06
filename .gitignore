@@ -23,6 +23,6 @@ ENV/
 Thumbs.db
 
 # Project uploads
-aegisshield/uploads/
+cybersquad/uploads/
 uploads/
-aegisshield/ml/saved_models/*.joblib
+cybersquad/ml/saved_models/*.joblib
