@@ -77,6 +77,15 @@
     <span class="link-icon"><i class="bi bi-gear"></i></span>
     Settings
   </a>
+  
+  {% if current_user.role == 'admin' %}
+  <div class="sidebar-section-label">Administration</div>
+  <a href="{{ url_for('admin.index') }}" class="sidebar-link {% if 'admin' in request.endpoint %}active{% endif %}">
+    <span class="link-icon"><i class="bi bi-shield-lock-fill text-danger"></i></span>
+    Admin Console
+  </a>
+  {% endif %}
+
   <a href="{{ url_for('main.about') }}" class="sidebar-link">
     <span class="link-icon"><i class="bi bi-info-circle"></i></span>
     About

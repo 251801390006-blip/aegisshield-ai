@@ -7,7 +7,7 @@
 <nav class="navbar navbar-aegis navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand-aegis" href="{{ url_for('main.landing') }}">
-      <div class="brand-icon">🛡</div>
+      <div class="brand-icon" style="color: white;">🛡</div>
       <span>Aegis<span class="brand-text-blue">Shield</span> AI</span>
     </a>
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="color:var(--text-secondary)">
@@ -37,28 +37,25 @@
 <!-- ── Hero Section ────────────────────────────────────────────── -->
 <section class="position-relative overflow-hidden" style="min-height:92vh;display:flex;align-items:center;padding:4rem 0;">
   <!-- Cyber particle network background -->
-  <canvas id="cyberCanvas" style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.22;"></canvas>
-
-  <!-- Animated grid background -->
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:1;"></div>
+  <canvas id="cyberCanvas" style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.15;"></canvas>
 
   <!-- Glow orbs -->
-  <div style="position:absolute;top:10%;left:5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,212,255,0.08) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
-  <div style="position:absolute;bottom:10%;right:5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(191,90,242,0.06) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;top:10%;left:5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(79,70,229,0.06) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;bottom:10%;right:5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(139,92,246,0.04) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
 
   <div class="container position-relative" style="z-index:2;">
     <div class="row align-items-center g-5">
       <!-- Left: Hero Copy -->
       <div class="col-lg-6 fade-in">
         <!-- Badge -->
-        <div class="d-inline-flex align-items-center gap-2 mb-4" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);padding:0.4rem 1rem;border-radius:20px;">
-          <span style="width:8px;height:8px;border-radius:50%;background:var(--neon-green);animation:corePulse 1.5s infinite;"></span>
-          <span style="font-size:0.8rem;font-weight:600;color:var(--neon-blue);">AI-Powered Security Platform</span>
+        <div class="d-inline-flex align-items-center gap-2 mb-4" style="background:rgba(79,70,229,0.06);border:1px solid rgba(79,70,229,0.15);padding:0.4rem 1rem;border-radius:20px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--success);animation:corePulse 1.5s infinite;"></span>
+          <span style="font-size:0.8rem;font-weight:600;color:var(--neon-blue);">AI-Powered Cybersecurity Platform</span>
         </div>
 
         <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:var(--text-bright);line-height:1.1;margin-bottom:1.25rem;">
           Defend Against<br>
-          <span style="background:linear-gradient(135deg,var(--neon-blue),#4de8ff,var(--neon-green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Cyber Threats</span><br>
+          <span style="background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Cyber Threats</span><br>
           with AI Intelligence
         </h1>
 
@@ -71,59 +68,45 @@
             Start Free Scan <i class="bi bi-arrow-right-short fs-5"></i>
           </a>
           <a href="#features" class="btn-outline-neon" style="font-size:1rem;padding:0.75rem 2rem;">
-            <i class="bi bi-play-circle"></i> See Features
+            See Features
           </a>
         </div>
 
         <!-- Trust indicators -->
-        <div class="d-flex flex-wrap gap-4" style="font-size:0.8rem;color:var(--text-muted);">
+        <div class="d-flex flex-wrap gap-4" style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">
           <span><i class="bi bi-shield-check text-success me-1"></i> 99.2% Detection Rate</span>
           <span><i class="bi bi-lightning-charge text-warning me-1"></i> Real-time Analysis</span>
-          <span><i class="bi bi-lock text-neon me-1"></i> Enterprise Security</span>
+          <span><i class="bi bi-lock text-primary me-1"></i> Enterprise Security</span>
         </div>
       </div>
 
       <!-- Right: Dashboard Preview Card -->
       <div class="col-lg-6">
-        <div class="glass-card p-0 overflow-hidden fade-in" style="animation-delay:0.2s;position:relative;z-index:2;">
+        <div class="glass-card p-0 overflow-hidden fade-in" style="animation-delay:0.2s;position:relative;z-index:2;box-shadow:var(--shadow-deep);background:#ffffff;">
           <!-- Laser Scanner Line -->
           <div class="scan-line-animation"></div>
           <!-- Card header -->
-          <div style="background:var(--bg-secondary);padding:0.75rem 1.25rem;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:0.5rem;position:relative;z-index:3;">
-            <span style="width:10px;height:10px;border-radius:50%;background:var(--danger);"></span>
-            <span style="width:10px;height:10px;border-radius:50%;background:var(--warning);"></span>
-            <span style="width:10px;height:10px;border-radius:50%;background:var(--success);"></span>
-            <span style="margin-left:0.5rem;font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">aegisshield.ai/dashboard</span>
+          <div style="background:#f9fafb;padding:0.75rem 1.25rem;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:0.5rem;position:relative;z-index:3;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#ef4444;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#f59e0b;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#10b981;"></span>
+            <span style="margin-left:0.5rem;font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);font-weight:600;">aegisshield.ai/terminal</span>
           </div>
-          <div style="padding:1.5rem;">
-            <!-- Mini stats -->
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1rem;">
-              <div class="stat-card stat-blue p-3">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Total Scans</div>
-                <div style="font-size:1.8rem;font-weight:900;color:var(--neon-blue);font-family:var(--font-mono);">2,847</div>
-              </div>
-              <div class="stat-card stat-red p-3">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Threats Blocked</div>
-                <div style="font-size:1.8rem;font-weight:900;color:var(--danger);font-family:var(--font-mono);">498</div>
-              </div>
-              <div class="stat-card stat-green p-3">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Safe Results</div>
-                <div style="font-size:1.8rem;font-weight:900;color:var(--success);font-family:var(--font-mono);">2,349</div>
-              </div>
-              <div class="stat-card stat-purple p-3">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.25rem;">Detection Rate</div>
-                <div style="font-size:1.8rem;font-weight:900;color:var(--neon-purple);font-family:var(--font-mono);">99.2%</div>
+          <!-- Terminal Body -->
+          <div style="background:#09090b;padding:1.5rem;font-family:var(--font-mono);font-size:0.8rem;color:#f4f4f5;min-height:260px;position:relative;z-index:2;line-height:1.6;">
+            <div id="cli-output"></div>
+            <span id="cli-cursor" style="display:inline-block;width:8px;height:15px;background:#ffffff;vertical-align:middle;animation:blink 1s infinite;"></span>
+          </div>
+          <!-- Stats Overlay footer -->
+          <div style="padding:1.25rem;border-top:1px solid var(--border-color);background:#fafafa;display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+              <span class="indicator-icon" style="color:var(--neon-blue);font-size:1.1rem;">⚡</span>
+              <div>
+                <div style="font-size:0.75rem;font-weight:700;color:var(--text-bright);">AI Engine Active</div>
+                <div style="font-size:0.65rem;color:var(--text-muted);">Gradient Boosting Models</div>
               </div>
             </div>
-            <!-- Mini scan result -->
-            <div class="result-panel threat p-3">
-              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;">
-                <span style="font-size:1rem;">⚠️</span>
-                <span style="font-weight:700;color:var(--danger);font-size:0.875rem;">PHISHING URL DETECTED</span>
-                <span class="risk-badge critical ms-auto">97.3% Risk</span>
-              </div>
-              <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);word-break:break-all;">http://paypal-secure-login.xyz/verify/account</div>
-            </div>
+            <a href="{{ url_for('auth.register') }}" class="btn-neon" style="font-size:0.75rem;padding:0.4rem 1rem;">Try Dashboard</a>
           </div>
         </div>
       </div>
@@ -415,5 +398,62 @@ if (canvas) {
     height = canvas.height = window.innerHeight;
   });
 }
+
+// CLI terminal typing simulation
+const cliOutput = document.getElementById('cli-output');
+if (cliOutput) {
+  const terminalLines = [
+    { text: '$ aegisshield scan --url https://paypal-secure-login.xyz/verify', color: '#a1a1aa' },
+    { text: '[*] Initializing AegisShield AI Security Engine...', color: '#6366f1' },
+    { text: '[+] Loaded Gradient Boosting Classifier v1.2.0', color: '#10b981' },
+    { text: '[+] Extracting 20 heuristic features from URL...', color: '#6366f1' },
+    { text: '[!] Warning: Suspicious entropy detected in domain name', color: '#f59e0b' },
+    { text: '[!] Warning: SSL certificate is missing/self-signed', color: '#f59e0b' },
+    { text: '[!] Warning: Domain age < 7 days (created: 2026-06-01)', color: '#f59e0b' },
+    { text: '[!] THREAT DETECTED: Phishing URL (97.3% threat score)', color: '#ef4444' }
+  ];
+
+  let lineIndex = 0;
+  let charIndex = 0;
+
+  function typeTerminal() {
+    if (lineIndex < terminalLines.length) {
+      const currentLine = terminalLines[lineIndex];
+      if (charIndex === 0) {
+        const lineDiv = document.createElement('div');
+        lineDiv.style.color = currentLine.color;
+        lineDiv.style.marginBottom = '0.35rem';
+        lineDiv.id = `cli-line-${lineIndex}`;
+        cliOutput.appendChild(lineDiv);
+      }
+      
+      const lineDiv = document.getElementById(`cli-line-${lineIndex}`);
+      if (lineDiv) {
+        lineDiv.textContent += currentLine.text[charIndex];
+        charIndex++;
+      }
+      
+      if (charIndex < currentLine.text.length) {
+        setTimeout(typeTerminal, 15 + Math.random() * 20);
+      } else {
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(typeTerminal, 500);
+      }
+    } else {
+      setTimeout(() => {
+        cliOutput.innerHTML = '';
+        lineIndex = 0;
+        charIndex = 0;
+        typeTerminal();
+      }, 6000);
+    }
+  }
+
+  setTimeout(typeTerminal, 1000);
+}
 </script>
+<style>
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+</style>
 {% endblock %}

@@ -1,0 +1,206 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Admin Console{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title"><i class="bi bi-shield-lock-fill text-danger me-2"></i>Admin Analytics Console</h1>
+  <p class="page-subtitle">Security logs, telemetry details, and client IP activity.</p>
+  <div class="page-header-divider"></div>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid mb-4">
+  <div class="stat-card stat-blue fade-in">
+    <div class="stat-icon icon-blue"><i class="bi bi-people-fill"></i></div>
+    <div class="stat-value">{{ stats.total_users }}</div>
+    <div class="stat-label">Registered Users</div>
+  </div>
+  <div class="stat-card stat-purple fade-in" style="animation-delay:.05s;">
+    <div class="stat-icon icon-purple"><i class="bi bi-shield-check"></i></div>
+    <div class="stat-value">{{ stats.total_scans }}</div>
+    <div class="stat-label">Total Scan Requests</div>
+  </div>
+  <div class="stat-card stat-red fade-in" style="animation-delay:.1s;">
+    <div class="stat-icon icon-red"><i class="bi bi-exclamation-triangle-fill"></i></div>
+    <div class="stat-value" style="color:var(--danger);">{{ stats.threat_scans }}</div>
+    <div class="stat-label">Threats Logged</div>
+  </div>
+  <div class="stat-card stat-green fade-in" style="animation-delay:.15s;">
+    <div class="stat-icon icon-green"><i class="bi bi-percent"></i></div>
+    <div class="stat-value" style="color:var(--success);">{{ stats.threat_rate }}%</div>
+    <div class="stat-label">Threat Detection Ratio</div>
+  </div>
+</div>
+
+<!-- Tabs for Users and Scans -->
+<div class="glass-card p-4 fade-in">
+  <ul class="nav nav-tabs mb-4 border-bottom" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active fw-600 border-0 border-bottom border-primary text-primary" id="scans-tab" data-bs-toggle="tab" data-bs-target="#scans-panel" type="button" role="tab" aria-controls="scans-panel" aria-selected="true" style="background:transparent; padding: 0.75rem 1.25rem;">
+        <i class="bi bi-activity me-2"></i>Scan Telemetry Logs
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link border-0 text-secondary" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-panel" type="button" role="tab" aria-controls="users-panel" aria-selected="false" style="background:transparent; padding: 0.75rem 1.25rem;">
+        <i class="bi bi-people me-2"></i>Registered Users
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="adminTabsContent">
+    <!-- Tab 1: Scan logs -->
+    <div class="tab-pane fade show active" id="scans-panel" role="tabpanel" aria-labelledby="scans-tab">
+      <div class="table-responsive">
+        {% if scans %}
+          <table class="table table-aegis">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Module</th>
+                <th>Scan Input</th>
+                <th>Result</th>
+                <th>Risk Score</th>
+                <th>Client IP</th>
+                <th>Date / Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for scan in scans %}
+                <tr>
+                  <td>
+                    <div style="font-weight:600;color:var(--text-bright);">{{ scan.user.username }}</div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">{{ scan.user.email }}</div>
+                  </td>
+                  <td>
+                    <span class="badge" style="background:var(--neon-blue-dim);color:var(--neon-blue);border:1.5px solid var(--border-color);font-size:0.75rem;font-weight:600;text-transform:capitalize;">
+                      {{ '📧 Spam' if scan.scan_type == 'spam' else '🎣 Phishing' if scan.scan_type == 'phishing' else '🔐 Password' if scan.scan_type == 'password' else '🦠 Malware' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div style="max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-mono);font-size:0.75rem;color:var(--text-secondary);" title="{{ scan.input_data }}">
+                      {{ scan.input_data }}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="risk-badge {{ 'critical' if scan.is_threat else 'safe' }}">
+                      {{ scan.result }}
+                    </span>
+                  </td>
+                  <td>
+                    <div style="font-weight:700;font-family:var(--font-mono);color:{% if scan.is_threat %}var(--danger){% else %}var(--success){% endif %};">
+                      {{ scan.risk_score|round(1) if scan.risk_score is not none else 'N/A' }}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="font-monospace" style="font-size:0.8rem;color:var(--text-secondary);background:var(--bg-tertiary);padding:2px 6px;border-radius:4px;border:1px solid var(--border-color);">
+                      <i class="bi bi-geo-alt me-1"></i>{{ scan.ip_address if scan.ip_address else '127.0.0.1' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div style="font-size:0.8rem;color:var(--text-secondary);">
+                      {{ scan.created_at.strftime('%Y-%b-%d') if scan.created_at else '' }}
+                    </div>
+                    <div style="font-size:0.7rem;color:var(--text-muted);">
+                      {{ scan.created_at.strftime('%H:%M:%S UTC') if scan.created_at else '' }}
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="text-center py-5 text-muted">
+            <i class="bi bi-hdd-network fs-2 mb-2 d-block"></i>
+            <p>No activity logs found in database.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Tab 2: Users list -->
+    <div class="tab-pane fade" id="users-panel" role="tabpanel" aria-labelledby="users-tab">
+      <div class="table-responsive">
+        <table class="table table-aegis">
+          <thead>
+            <tr>
+              <th>User Details</th>
+              <th>System Role</th>
+              <th>Registration Date</th>
+              <th>Last Login</th>
+              <th>Activity Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:0.75rem;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:var(--neon-blue-dim);color:var(--neon-blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95rem;border:1px solid var(--border-color);">
+                      {{ user.username[0].upper() }}
+                    </div>
+                    <div>
+                      <div style="font-weight:600;color:var(--text-bright);">{{ user.username }}</div>
+                      <div style="font-size:0.75rem;color:var(--text-muted);">{{ user.email }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="badge" style="{% if user.role == 'admin' %}background:rgba(239, 68, 68, 0.08);color:#ef4444;border:1px solid rgba(239, 68, 68, 0.2);{% else %}background:rgba(79, 70, 229, 0.08);color:#4f46e5;border:1px solid rgba(79, 70, 229, 0.2);{% endif %}padding:0.4rem 0.75rem;font-size:0.75rem;font-weight:600;text-transform:uppercase;">
+                    {{ user.role }}
+                  </span>
+                </td>
+                <td>
+                  <span style="font-size:0.8rem;color:var(--text-secondary);">
+                    {{ user.created_at.strftime('%Y-%b-%d') if user.created_at else 'N/A' }}
+                  </span>
+                </td>
+                <td>
+                  <span style="font-size:0.8rem;color:var(--text-secondary);">
+                    {% if user.last_login %}
+                      {{ user.last_login.strftime('%Y-%b-%d %H:%M') }}
+                    {% else %}
+                      <span class="text-muted">Never logged in</span>
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  {% set user_stats = user.get_scan_stats() %}
+                  <span style="font-size:0.8rem;color:var(--text-secondary);font-weight:600;">
+                    {{ user_stats.total }} Scans
+                  </span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);">
+                    ({{ user_stats.threats }} Threats / {{ user_stats.safe }} Safe)
+                  </span>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simple Tab Toggle Logic
+  document.getElementById('scans-tab').addEventListener('click', function(e) {
+    e.preventDefault();
+    this.classList.add('active', 'border-bottom', 'border-primary', 'text-primary');
+    this.classList.remove('text-secondary');
+    
+    const ut = document.getElementById('users-tab');
+    ut.classList.remove('active', 'border-bottom', 'border-primary', 'text-primary');
+    ut.classList.add('text-secondary');
+  });
+
+  document.getElementById('users-tab').addEventListener('click', function(e) {
+    e.preventDefault();
+    this.classList.add('active', 'border-bottom', 'border-primary', 'text-primary');
+    this.classList.remove('text-secondary');
+    
+    const st = document.getElementById('scans-tab');
+    st.classList.remove('active', 'border-bottom', 'border-primary', 'text-primary');
+    st.classList.add('text-secondary');
+  });
+</script>
+{% endblock %}

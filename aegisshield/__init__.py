@@ -63,6 +63,7 @@ def create_app(config_class=None):
     from aegisshield.routes.profile import profile_bp
     from aegisshield.routes.api import api_bp
     from aegisshield.routes.main import main_bp
+    from aegisshield.routes.admin import admin_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -75,6 +76,7 @@ def create_app(config_class=None):
     app.register_blueprint(reports_bp, url_prefix="/reports")
     app.register_blueprint(profile_bp, url_prefix="/profile")
     app.register_blueprint(api_bp, url_prefix="/api/v1")
+    app.register_blueprint(admin_bp, url_prefix="/admin")
 
     # ── Create DB tables ────────────────────────────────────────────────────
     with app.app_context():
@@ -102,17 +104,29 @@ def create_app(config_class=None):
 
 
 def _seed_demo_data(app):
-    """Seed a demo user on first run (development only)."""
+    """Seed demo and admin users on first run (development only)."""
     if app.config.get("TESTING"):
         return
     from aegisshield.models.user import User
-    if User.query.filter_by(email="demo@aegisshield.io").first():
-        return
-    demo = User(
-        username="demo_user",
-        email="demo@aegisshield.io",
-        role="user",
-    )
-    demo.set_password("Demo@1234")
-    db.session.add(demo)
+    
+    # Seed demo user
+    if not User.query.filter_by(email="demo@aegisshield.io").first():
+        demo = User(
+            username="demo_user",
+            email="demo@aegisshield.io",
+            role="user",
+        )
+        demo.set_password("Demo@1234")
+        db.session.add(demo)
+        
+    # Seed admin user
+    if not User.query.filter_by(email="admin@aegisshield.io").first():
+        admin = User(
+            username="admin_user",
+            email="admin@aegisshield.io",
+            role="admin",
+        )
+        admin.set_password("Admin@1234")
+        db.session.add(admin)
+        
     db.session.commit()

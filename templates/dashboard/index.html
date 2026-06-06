@@ -160,19 +160,19 @@ new Chart(weeklyCtx, {
   data: {
     labels: weeklyData.labels,
     datasets: [
-      { label: 'Spam', data: weeklyData.spam, backgroundColor: 'rgba(255,152,0,0.7)', borderRadius: 4 },
-      { label: 'Phishing', data: weeklyData.phishing, backgroundColor: 'rgba(255,68,68,0.7)', borderRadius: 4 },
-      { label: 'Password', data: weeklyData.password, backgroundColor: 'rgba(0,212,255,0.7)', borderRadius: 4 },
-      { label: 'Malware', data: weeklyData.malware, backgroundColor: 'rgba(191,90,242,0.7)', borderRadius: 4 },
+      { label: 'Spam', data: weeklyData.spam, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
+      { label: 'Phishing', data: weeklyData.phishing, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 },
+      { label: 'Password', data: weeklyData.password, backgroundColor: 'rgba(79, 70, 229, 0.85)', borderRadius: 4 },
+      { label: 'Malware', data: weeklyData.malware, backgroundColor: 'rgba(139, 92, 246, 0.85)', borderRadius: 4 },
     ]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#8b949e', font: { size: 11 } } } },
+    plugins: { legend: { labels: { color: '#374151', font: { size: 11, weight: '500' } } } },
     scales: {
-      x: { ticks: { color: '#6e7681', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.5)' } },
-      y: { ticks: { color: '#6e7681', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.5)' }, beginAtZero: true },
+      x: { ticks: { color: '#6b7280', font: { size: 11 } }, grid: { color: '#e5e7eb' } },
+      y: { ticks: { color: '#6b7280', font: { size: 11 } }, grid: { color: '#e5e7eb' }, beginAtZero: true },
     }
   }
 });
@@ -185,9 +185,9 @@ new Chart(donutCtx, {
     labels: ['Spam', 'Phishing', 'Password', 'Malware'],
     datasets: [{
       data: [stats.spam || 1, stats.phishing || 1, stats.password || 1, stats.malware || 1],
-      backgroundColor: ['rgba(255,152,0,0.8)','rgba(255,68,68,0.8)','rgba(0,212,255,0.8)','rgba(191,90,242,0.8)'],
+      backgroundColor: ['rgba(245, 158, 11, 0.8)','rgba(239, 68, 68, 0.8)','rgba(79, 70, 229, 0.8)','rgba(139, 92, 246, 0.8)'],
       borderColor: ['#ffffff'],
-      borderWidth: 3,
+      borderWidth: 2,
     }]
   },
   options: {
