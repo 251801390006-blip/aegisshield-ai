@@ -36,7 +36,7 @@ def index():
 
 @phishing_bp.route("/analyze", methods=["POST"])
 @login_required
-@limiter.limit("30 per hour")
+@limiter.limit("1000 per hour")
 def analyze():
     data = request.get_json(silent=True) or {}
     url = data.get("url", "").strip()

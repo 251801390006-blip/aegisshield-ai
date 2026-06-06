@@ -26,7 +26,7 @@ def index():
 
 @password_bp.route("/analyze", methods=["POST"])
 @login_required
-@limiter.limit("60 per hour")
+@limiter.limit("2000 per hour")
 def analyze():
     data = request.get_json(silent=True) or {}
     password = data.get("password", "")
@@ -67,7 +67,7 @@ def analyze():
 
 @password_bp.route("/realtime", methods=["POST"])
 @login_required
-@limiter.limit("120 per minute")
+@limiter.limit("5000 per minute")
 def realtime():
     """Real-time analysis without saving to history."""
     data = request.get_json(silent=True) or {}

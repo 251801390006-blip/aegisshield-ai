@@ -17,7 +17,7 @@ auth_bp = Blueprint("auth", __name__)
 # ── Registration ─────────────────────────────────────────────────────────────
 
 @auth_bp.route("/register", methods=["GET", "POST"])
-@limiter.limit("10 per hour")
+@limiter.limit("1000 per hour")
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.index"))
@@ -40,7 +40,7 @@ def register():
 # ── Login ─────────────────────────────────────────────────────────────────────
 
 @auth_bp.route("/login", methods=["GET", "POST"])
-@limiter.limit("20 per hour")
+@limiter.limit("2000 per hour")
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.index"))
@@ -72,7 +72,7 @@ def logout():
 # ── Forgot Password ───────────────────────────────────────────────────────────
 
 @auth_bp.route("/forgot-password", methods=["GET", "POST"])
-@limiter.limit("5 per hour")
+@limiter.limit("200 per hour")
 def forgot_password():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.index"))

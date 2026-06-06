@@ -41,7 +41,7 @@ class Config:
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 
     # ── Rate Limiting ─────────────────────────────────────────────────────
-    RATELIMIT_DEFAULT = "200 per day;50 per hour"
+    RATELIMIT_DEFAULT = "10000 per day;2000 per hour"
     RATELIMIT_STORAGE_URL = "memory://"
 
     # ── ML Model Paths ─────────────────────────────────────────────────────
