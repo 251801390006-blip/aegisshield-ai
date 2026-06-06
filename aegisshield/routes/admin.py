@@ -2,7 +2,7 @@
 AegisShield AI – Admin Analytics Blueprint
 """
 
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 
 from aegisshield.extensions import db
@@ -60,9 +60,10 @@ def reset_database():
     from aegisshield.models.threat_report import ThreatReport
     
     try:
-        # Delete scan history and threat reports
-        ScanHistory.query.delete()
+        # Delete threat reports first (references scan_history and users)
         ThreatReport.query.delete()
+        # Then delete scan history (references users)
+        ScanHistory.query.delete()
         
         # Delete users except demo/admin
         User.query.filter(
