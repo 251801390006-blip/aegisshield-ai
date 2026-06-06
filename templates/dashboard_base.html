@@ -12,7 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v=1.0.4">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v=1.0.5">
   {% block extra_css %}{% endblock %}
 </head>
 <body class="gradient-bg">
@@ -23,12 +23,18 @@
 <!-- ── Sidebar ──────────────────────────────────────────────── -->
 <nav class="sidebar" id="sidebar">
   <!-- Brand -->
-  <div class="sidebar-brand">
-    <div class="brand-icon">🛡</div>
-    <div>
-      <div class="sidebar-brand-text">Cyber <span>Squad</span></div>
-      <div style="font-size:0.65rem;color:var(--text-muted);margin-top:-2px;">AI Security Platform</div>
+  <div class="sidebar-brand" style="justify-content: space-between; width: 100%;">
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <div class="brand-icon">🛡</div>
+      <div>
+        <div class="sidebar-brand-text">Cyber <span>Squad</span></div>
+        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:-2px;">AI Security Platform</div>
+      </div>
     </div>
+    <!-- Close button for mobile -->
+    <button class="btn p-0 d-lg-none" style="color:var(--text-secondary);background:none;border:none;" onclick="closeSidebar()" title="Close Sidebar">
+      <i class="bi bi-x-lg" style="font-size: 1.2rem;"></i>
+    </button>
   </div>
 
   <!-- Nav -->
@@ -137,7 +143,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}?v=1.0.4"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}?v=1.0.5"></script>
 {% block extra_js %}{% endblock %}
 
 <script>
