@@ -48,10 +48,10 @@
         {{ form.hidden_tag() }}
 
         <div class="mb-3">
-          <label class="form-label-aegis" for="username">Username</label>
+          <label class="form-label-cybersquad" for="username">Username</label>
           <div style="position:relative;">
             <i class="bi bi-person" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.username(id="username", class="form-control-aegis", style="padding-left:2.5rem;", placeholder="johndoe_security", autocomplete="username") }}
+            {{ form.username(id="username", class="form-control-cybersquad", style="padding-left:2.5rem;", placeholder="johndoe_security", autocomplete="username") }}
           </div>
           {% if form.username.errors %}
             <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ form.username.errors[0] }}</div>
@@ -60,10 +60,10 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label-aegis" for="email">Email Address</label>
+          <label class="form-label-cybersquad" for="email">Email Address</label>
           <div style="position:relative;">
             <i class="bi bi-envelope" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.email(id="email", class="form-control-aegis", style="padding-left:2.5rem;", placeholder="you@example.com", autocomplete="email") }}
+            {{ form.email(id="email", class="form-control-cybersquad", style="padding-left:2.5rem;", placeholder="you@example.com", autocomplete="email") }}
           </div>
           {% if form.email.errors %}
             <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ form.email.errors[0] }}</div>
@@ -71,10 +71,10 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label-aegis" for="password">Password</label>
+          <label class="form-label-cybersquad" for="password">Password</label>
           <div style="position:relative;">
             <i class="bi bi-lock" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.password(id="password", class="form-control-aegis", style="padding-left:2.5rem;padding-right:3rem;", placeholder="Min. 8 characters", autocomplete="new-password") }}
+            {{ form.password(id="password", class="form-control-cybersquad", style="padding-left:2.5rem;padding-right:3rem;", placeholder="Min. 8 characters", autocomplete="new-password") }}
             <button type="button" onclick="togglePwd('password','eye1')" style="position:absolute;right:0.875rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;">
               <i class="bi bi-eye" id="eye1"></i>
             </button>
@@ -90,10 +90,10 @@
         </div>
 
         <div class="mb-4">
-          <label class="form-label-aegis" for="confirm_password">Confirm Password</label>
+          <label class="form-label-cybersquad" for="confirm_password">Confirm Password</label>
           <div style="position:relative;">
             <i class="bi bi-lock-fill" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.confirm_password(id="confirm_password", class="form-control-aegis", style="padding-left:2.5rem;padding-right:3rem;", placeholder="Re-enter password", autocomplete="new-password") }}
+            {{ form.confirm_password(id="confirm_password", class="form-control-cybersquad", style="padding-left:2.5rem;padding-right:3rem;", placeholder="Re-enter password", autocomplete="new-password") }}
             <button type="button" onclick="togglePwd('confirm_password','eye2')" style="position:absolute;right:0.875rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;">
               <i class="bi bi-eye" id="eye2"></i>
             </button>

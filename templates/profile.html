@@ -47,15 +47,15 @@
       <form method="POST" action="{{ url_for('profile.update') }}">
         {{ profile_form.hidden_tag() }}
         <div class="mb-3">
-          <label class="form-label-aegis">Username</label>
-          {{ profile_form.username(class="form-control-aegis", value=current_user.username) }}
+          <label class="form-label-cybersquad">Username</label>
+          {{ profile_form.username(class="form-control-cybersquad", value=current_user.username) }}
           {% if profile_form.username.errors %}
           <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ profile_form.username.errors[0] }}</div>
           {% endif %}
         </div>
         <div class="mb-4">
-          <label class="form-label-aegis">Bio</label>
-          {{ profile_form.bio(class="form-control-aegis", style="height:80px;resize:vertical;", placeholder="Tell us about yourself...") }}
+          <label class="form-label-cybersquad">Bio</label>
+          {{ profile_form.bio(class="form-control-cybersquad", style="height:80px;resize:vertical;", placeholder="Tell us about yourself...") }}
         </div>
         <button type="submit" class="btn-neon" style="padding:0.6rem 1.5rem;">
           <i class="bi bi-save me-1"></i>Update Profile
@@ -69,22 +69,22 @@
       <form method="POST" action="{{ url_for('profile.change_password') }}">
         {{ password_form.hidden_tag() }}
         <div class="mb-3">
-          <label class="form-label-aegis">Current Password</label>
-          {{ password_form.current_password(class="form-control-aegis", placeholder="••••••••") }}
+          <label class="form-label-cybersquad">Current Password</label>
+          {{ password_form.current_password(class="form-control-cybersquad", placeholder="••••••••") }}
           {% if password_form.current_password.errors %}
           <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ password_form.current_password.errors[0] }}</div>
           {% endif %}
         </div>
         <div class="mb-3">
-          <label class="form-label-aegis">New Password</label>
-          {{ password_form.new_password(class="form-control-aegis", placeholder="Min 8 characters") }}
+          <label class="form-label-cybersquad">New Password</label>
+          {{ password_form.new_password(class="form-control-cybersquad", placeholder="Min 8 characters") }}
           {% if password_form.new_password.errors %}
           <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ password_form.new_password.errors[0] }}</div>
           {% endif %}
         </div>
         <div class="mb-4">
-          <label class="form-label-aegis">Confirm New Password</label>
-          {{ password_form.confirm_password(class="form-control-aegis", placeholder="Re-enter new password") }}
+          <label class="form-label-cybersquad">Confirm New Password</label>
+          {{ password_form.confirm_password(class="form-control-cybersquad", placeholder="Re-enter new password") }}
           {% if password_form.confirm_password.errors %}
           <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ password_form.confirm_password.errors[0] }}</div>
           {% endif %}

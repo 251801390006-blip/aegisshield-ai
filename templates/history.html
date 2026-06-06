@@ -20,12 +20,12 @@
 <div class="glass-card p-3 mb-4 fade-in">
   <form method="GET" action="{{ url_for('history.index') }}" class="d-flex flex-wrap gap-3 align-items-end">
     <div style="flex:2;min-width:200px;">
-      <label class="form-label-aegis">Search</label>
-      <input type="text" name="search" class="form-control-aegis" placeholder="Search scan input..." value="{{ search }}">
+      <label class="form-label-cybersquad">Search</label>
+      <input type="text" name="search" class="form-control-cybersquad" placeholder="Search scan input..." value="{{ search }}">
     </div>
     <div style="flex:1;min-width:130px;">
-      <label class="form-label-aegis">Type</label>
-      <select name="type" class="form-control-aegis">
+      <label class="form-label-cybersquad">Type</label>
+      <select name="type" class="form-control-cybersquad">
         <option value="">All Types</option>
         {% for t in ['spam','phishing','password','malware'] %}
         <option value="{{ t }}" {% if scan_type == t %}selected{% endif %}>{{ t.title() }}</option>
@@ -33,8 +33,8 @@
       </select>
     </div>
     <div style="flex:1;min-width:130px;">
-      <label class="form-label-aegis">Result</label>
-      <select name="result" class="form-control-aegis">
+      <label class="form-label-cybersquad">Result</label>
+      <select name="result" class="form-control-cybersquad">
         <option value="">All Results</option>
         <option value="threats" {% if result_filter == 'threats' %}selected{% endif %}>Threats Only</option>
         <option value="safe" {% if result_filter == 'safe' %}selected{% endif %}>Safe Only</option>
@@ -57,7 +57,7 @@
 <div class="glass-card overflow-hidden fade-in">
   {% if scans %}
   <div style="overflow-x:auto;">
-    <table class="table-aegis">
+    <table class="table-cybersquad">
       <thead>
         <tr>
           <th>#</th>
@@ -121,7 +121,7 @@
     <span style="font-size:0.8rem;color:var(--text-muted);">
       Showing {{ (pagination.page-1)*20+1 }}–{{ [(pagination.page)*20, pagination.total]|min }} of {{ pagination.total }} scans
     </span>
-    <div class="pagination-aegis">
+    <div class="pagination-cybersquad">
       {% if pagination.has_prev %}
       <a href="{{ url_for('history.index', page=pagination.prev_num, type=scan_type, search=search, result=result_filter) }}" class="page-btn"><i class="bi bi-chevron-left"></i></a>
       {% endif %}

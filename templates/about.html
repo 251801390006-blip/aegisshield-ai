@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}About Cyber Squad AI{% endblock %}
 {% block body %}
-<nav class="navbar-aegis navbar navbar-expand-lg">
+<nav class="navbar-cybersquad navbar navbar-expand-lg">
   <div class="container">
-    <a class="navbar-brand-aegis" href="{{ url_for('main.landing') }}">
+    <a class="navbar-brand-cybersquad" href="{{ url_for('main.landing') }}">
       <div class="brand-icon">🛡</div>
-      Aegis<span class="brand-text-blue">Shield</span> AI
+      Cyber <span class="brand-text-blue">Squad</span> AI
     </a>
     <div class="ms-auto">
       {% if current_user.is_authenticated %}

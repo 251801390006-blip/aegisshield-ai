@@ -35,7 +35,7 @@
 <div class="flash-messages" id="flashMessages">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% for category, message in messages %}
-      <div class="toast-aegis {{ 'danger' if category == 'error' else category }} mb-2 fade-in" id="flash-{{ loop.index }}">
+      <div class="toast-cybersquad {{ 'danger' if category == 'error' else category }} mb-2 fade-in" id="flash-{{ loop.index }}">
         <i class="bi bi-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' if category in ('danger','error') else 'info-circle' }}"></i>
         <span>{{ message }}</span>
         <button class="btn p-0 ms-auto" style="color:var(--text-muted)" onclick="this.parentElement.remove()">
@@ -60,7 +60,7 @@
 <script>
   // Auto-dismiss flash messages
   setTimeout(() => {
-    document.querySelectorAll('.toast-aegis').forEach(el => {
+    document.querySelectorAll('.toast-cybersquad').forEach(el => {
       el.style.opacity = '0';
       el.style.transition = 'opacity 0.5s';
       setTimeout(() => el.remove(), 500);

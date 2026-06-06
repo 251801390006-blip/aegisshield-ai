@@ -39,7 +39,7 @@ function showToast(message, type = 'info') {
   })();
 
   const toast = document.createElement('div');
-  toast.className = `toast-aegis ${type}`;
+  toast.className = `toast-cybersquad ${type}`;
   toast.style.pointerEvents = 'auto';
   toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${message}</span>`;
   container.appendChild(toast);

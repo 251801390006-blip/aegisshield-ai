@@ -9,7 +9,7 @@
     <div class="text-center position-relative z-1 p-5">
       <div style="font-size:5rem;margin-bottom:1.5rem;filter:drop-shadow(0 4px 15px rgba(79,70,229,0.15));">🛡</div>
       <h2 style="font-size:2rem;font-weight:800;color:var(--text-bright);margin-bottom:0.75rem;">
-        Aegis<span style="color:var(--neon-blue);">Shield</span> AI
+        Cyber <span style="color:var(--neon-blue);">Squad</span> AI
       </h2>
       <p style="color:var(--text-secondary);max-width:350px;line-height:1.7;">
         Advanced AI-powered cybersecurity platform protecting you against spam, phishing, malware, and weak passwords.
@@ -46,10 +46,10 @@
         {{ form.hidden_tag() }}
 
         <div class="mb-4">
-          <label class="form-label-aegis" for="email">Email Address</label>
+          <label class="form-label-cybersquad" for="email">Email Address</label>
           <div style="position:relative;">
             <i class="bi bi-envelope" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.email(id="email", class="form-control-aegis", style="padding-left:2.5rem;", placeholder="you@example.com", autocomplete="email") }}
+            {{ form.email(id="email", class="form-control-cybersquad", style="padding-left:2.5rem;", placeholder="you@example.com", autocomplete="email") }}
           </div>
           {% if form.email.errors %}
             <div style="color:var(--danger);font-size:0.8rem;margin-top:0.35rem;">{{ form.email.errors[0] }}</div>
@@ -58,12 +58,12 @@
 
         <div class="mb-4">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <label class="form-label-aegis" for="password">Password</label>
+            <label class="form-label-cybersquad" for="password">Password</label>
             <a href="{{ url_for('auth.forgot_password') }}" style="font-size:0.8rem;color:var(--neon-blue);">Forgot password?</a>
           </div>
           <div style="position:relative;">
             <i class="bi bi-lock" style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;"></i>
-            {{ form.password(id="password", class="form-control-aegis", style="padding-left:2.5rem;padding-right:3rem;", placeholder="••••••••", autocomplete="current-password") }}
+            {{ form.password(id="password", class="form-control-cybersquad", style="padding-left:2.5rem;padding-right:3rem;", placeholder="••••••••", autocomplete="current-password") }}
             <button type="button" onclick="togglePwd('password','eyeIcon')" style="position:absolute;right:0.875rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;">
               <i class="bi bi-eye" id="eyeIcon"></i>
             </button>

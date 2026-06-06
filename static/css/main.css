@@ -251,7 +251,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 /* ── Navigation ──────────────────────────────────────────────── */
-.navbar-aegis {
+.navbar-cybersquad {
   background: #ffffff !important;
   border-bottom: 1px solid var(--border-color);
   padding: 0 !important; /* Clear padding for full-height block buttons */
@@ -263,7 +263,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   align-items: center;
 }
 
-.navbar-brand-aegis {
+.navbar-brand-cybersquad {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -274,7 +274,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   letter-spacing: -0.02em;
 }
 
-.navbar-brand-aegis .brand-icon {
+.navbar-brand-cybersquad .brand-icon {
   width: 32px;
   height: 32px;
   background: var(--gradient-cyber);
@@ -286,9 +286,9 @@ code, pre, .mono { font-family: var(--font-mono); }
   box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
 }
 
-.navbar-brand-aegis .brand-text-blue { color: var(--neon-blue); }
+.navbar-brand-cybersquad .brand-text-blue { color: var(--neon-blue); }
 
-.nav-link-aegis {
+.nav-link-cybersquad {
   color: var(--text-secondary) !important;
   font-weight: 500;
   font-size: 0.875rem;
@@ -300,7 +300,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   gap: 0.35rem;
 }
 
-.nav-link-aegis:hover, .nav-link-aegis.active {
+.nav-link-cybersquad:hover, .nav-link-cybersquad.active {
   color: var(--neon-blue) !important;
   background: var(--neon-blue-dim);
 }
@@ -568,7 +568,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 /* ── Forms ────────────────────────────────────────────────────── */
-.form-control-aegis {
+.form-control-cybersquad {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -580,7 +580,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   width: 100%;
 }
 
-.form-control-aegis:focus {
+.form-control-cybersquad:focus {
   outline: none;
   border-color: var(--neon-blue);
   background: var(--bg-secondary);
@@ -588,16 +588,16 @@ code, pre, .mono { font-family: var(--font-mono); }
   color: var(--text-bright);
 }
 
-.form-control-aegis::placeholder { color: var(--text-muted); }
+.form-control-cybersquad::placeholder { color: var(--text-muted); }
 
-.form-control-aegis.textarea {
+.form-control-cybersquad.textarea {
   resize: vertical;
   min-height: 140px;
   font-family: var(--font-mono);
   font-size: 0.85rem;
 }
 
-.form-label-aegis {
+.form-label-cybersquad {
   display: block;
   font-size: 0.8rem;
   font-weight: 600;
@@ -608,13 +608,13 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 /* ── Tables ───────────────────────────────────────────────────── */
-.table-aegis {
+.table-cybersquad {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
 }
 
-.table-aegis thead th {
+.table-cybersquad thead th {
   background: var(--bg-secondary);
   color: var(--text-muted);
   font-size: 0.7rem;
@@ -626,18 +626,18 @@ code, pre, .mono { font-family: var(--font-mono); }
   white-space: nowrap;
 }
 
-.table-aegis tbody td {
+.table-cybersquad tbody td {
   padding: 0.85rem 1rem;
   border-bottom: 1px solid rgba(48, 54, 61, 0.5);
   color: var(--text-primary);
   vertical-align: middle;
 }
 
-.table-aegis tbody tr {
+.table-cybersquad tbody tr {
   transition: background var(--transition);
 }
 
-.table-aegis tbody tr:hover {
+.table-cybersquad tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
 }
 
@@ -757,7 +757,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 .upload-zone .upload-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.6; }
 
 /* ── Alerts ────────────────────────────────────────────────────── */
-.alert-aegis {
+.alert-cybersquad {
   padding: 0.85rem 1.25rem;
   border-radius: var(--radius-md);
   font-size: 0.875rem;
@@ -768,10 +768,10 @@ code, pre, .mono { font-family: var(--font-mono); }
   margin-bottom: 1rem;
 }
 
-.alert-aegis.success { background: var(--success-dim); border-color: rgba(0,204,102,0.3); color: var(--success); }
-.alert-aegis.danger { background: var(--danger-dim); border-color: rgba(255,68,68,0.3); color: var(--danger); }
-.alert-aegis.warning { background: var(--warning-dim); border-color: rgba(255,152,0,0.3); color: var(--warning); }
-.alert-aegis.info { background: var(--info-dim); border-color: rgba(0,212,255,0.3); color: var(--info); }
+.alert-cybersquad.success { background: var(--success-dim); border-color: rgba(0,204,102,0.3); color: var(--success); }
+.alert-cybersquad.danger { background: var(--danger-dim); border-color: rgba(255,68,68,0.3); color: var(--danger); }
+.alert-cybersquad.warning { background: var(--warning-dim); border-color: rgba(255,152,0,0.3); color: var(--warning); }
+.alert-cybersquad.info { background: var(--info-dim); border-color: rgba(0,212,255,0.3); color: var(--info); }
 
 /* ── Page Header ─────────────────────────────────────────────── */
 .page-header {
@@ -809,7 +809,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── Pagination ──────────────────────────────────────────────── */
-.pagination-aegis {
+.pagination-cybersquad {
   display: flex;
   gap: 0.25rem;
   align-items: center;
@@ -843,7 +843,7 @@ code, pre, .mono { font-family: var(--font-mono); }
   pointer-events: none;
 }
 
-.toast-aegis {
+.toast-cybersquad {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -864,10 +864,10 @@ code, pre, .mono { font-family: var(--font-mono); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-.toast-aegis.success { border-left: 3px solid var(--success); }
-.toast-aegis.danger { border-left: 3px solid var(--danger); }
-.toast-aegis.info { border-left: 3px solid var(--neon-blue); }
-.toast-aegis.warning { border-left: 3px solid var(--warning); }
+.toast-cybersquad.success { border-left: 3px solid var(--success); }
+.toast-cybersquad.danger { border-left: 3px solid var(--danger); }
+.toast-cybersquad.info { border-left: 3px solid var(--neon-blue); }
+.toast-cybersquad.warning { border-left: 3px solid var(--warning); }
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
@@ -920,7 +920,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 /* ── Select (dropdown) inputs ─────────────────────────────────── */
-select.form-control-aegis {
+select.form-control-cybersquad {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -932,7 +932,7 @@ select.form-control-aegis {
   cursor: pointer;
 }
 
-select.form-control-aegis option {
+select.form-control-cybersquad option {
   background: var(--bg-secondary);
   color: var(--text-primary);
 }
@@ -946,8 +946,8 @@ input[type="checkbox"] {
 }
 
 /* ── Toast .error variant (alias) ─────────────────────────────── */
-.toast-aegis.error { border-left: 3px solid var(--danger); }
-.alert-aegis.error { background: var(--danger-dim); border-color: rgba(255,68,68,0.3); color: var(--danger); }
+.toast-cybersquad.error { border-left: 3px solid var(--danger); }
+.alert-cybersquad.error { background: var(--danger-dim); border-color: rgba(255,68,68,0.3); color: var(--danger); }
 
 /* ── Missing strength bar class aliases ─────────────────────────── */
 .strength-very-weak .strength-meter-fill,
