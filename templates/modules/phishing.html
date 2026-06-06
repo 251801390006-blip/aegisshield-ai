@@ -50,34 +50,34 @@
 
   <div class="col-lg-5">
     <div class="glass-card p-4 mb-4 fade-in">
-      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔬 20 Features Analyzed</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔬 20 Features Analyzed</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
         {% for feature in ['URL Length','Domain Length','IP Address Use','HTTPS Check','Suspicious TLD','Phishing Keywords','URL Entropy','@ Symbol','Shortener Detection','Brand Impersonation','Subdomain Count','Hyphens in Domain','Dots in Domain','Special Chars','Query Params','Double Slash','Hex Encoding','Path Length','Domain Digits','Port Number'] %}
-        <div style="font-size:0.75rem;color:var(--text-secondary);padding:0.3rem 0.5rem;background:var(--bg-tertiary);border-radius:6px;">
-          <i class="bi bi-check-circle" style="color:var(--neon-blue);margin-right:0.35rem;font-size:0.7rem;"></i>{{ feature }}
+        <div style="font-size:0.85rem;color:var(--text-primary);font-weight:500;padding:0.4rem 0.6rem;background:var(--bg-tertiary);border-radius:6px;display:flex;align-items:center;">
+          <i class="bi bi-check-circle-fill" style="color:var(--neon-blue);margin-right:0.45rem;font-size:0.8rem;"></i>{{ feature }}
         </div>
         {% endfor %}
       </div>
     </div>
 
     <div class="glass-card p-4 fade-in">
-      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">⚡ Risk Score Guide</h3>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">⚡ Risk Score Guide</h3>
       <div style="display:flex;flex-direction:column;gap:0.5rem;">
-        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem;background:var(--danger-dim);border-radius:8px;border:1px solid rgba(255,68,68,0.2);">
-          <span class="risk-badge critical">80-100</span>
-          <span style="font-size:0.8rem;">Critical phishing risk – Do NOT visit</span>
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem;background:var(--danger-dim);border-radius:8px;border:1px solid rgba(255,68,68,0.2);">
+          <span class="risk-badge critical" style="font-size:0.75rem;width:60px;text-align:center;">80-100</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:500;">Critical phishing risk – Do NOT visit</span>
         </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem;background:var(--warning-dim);border-radius:8px;border:1px solid rgba(255,152,0,0.2);">
-          <span class="risk-badge high">60-79</span>
-          <span style="font-size:0.8rem;">High risk – Verify before visiting</span>
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem;background:var(--warning-dim);border-radius:8px;border:1px solid rgba(255,152,0,0.2);">
+          <span class="risk-badge high" style="font-size:0.75rem;width:60px;text-align:center;">60-79</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:500;">High risk – Verify before visiting</span>
         </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem;background:rgba(255,214,0,0.08);border-radius:8px;border:1px solid rgba(255,214,0,0.2);">
-          <span class="risk-badge medium">40-59</span>
-          <span style="font-size:0.8rem;">Medium risk – Exercise caution</span>
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem;background:rgba(255,214,0,0.08);border-radius:8px;border:1px solid rgba(255,214,0,0.2);">
+          <span class="risk-badge medium" style="font-size:0.75rem;width:60px;text-align:center;">40-59</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:500;">Medium risk – Exercise caution</span>
         </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem;background:var(--success-dim);border-radius:8px;border:1px solid rgba(0,204,102,0.2);">
-          <span class="risk-badge safe">0-39</span>
-          <span style="font-size:0.8rem;">Low risk – Appears legitimate</span>
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem;background:var(--success-dim);border-radius:8px;border:1px solid rgba(0,204,102,0.2);">
+          <span class="risk-badge safe" style="font-size:0.75rem;width:60px;text-align:center;">0-39</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:500;">Low risk – Appears legitimate</span>
         </div>
       </div>
     </div>

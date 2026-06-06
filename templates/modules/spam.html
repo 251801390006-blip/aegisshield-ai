@@ -56,39 +56,39 @@
   <div class="col-lg-5">
     <!-- Model info -->
     <div class="glass-card p-4 mb-4 fade-in">
-      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🤖 AI Model Details</h3>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🤖 AI Model Details</h3>
       <div style="display:flex;flex-direction:column;gap:0.75rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-muted);">Primary Model</span>
+          <span style="font-size:0.92rem;color:var(--text-secondary);font-weight:500;">Primary Model</span>
           <span class="risk-badge medium">Naive Bayes</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-muted);">Secondary Model</span>
+          <span style="font-size:0.92rem;color:var(--text-secondary);font-weight:500;">Secondary Model</span>
           <span class="risk-badge medium">Logistic Regression</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-muted);">Feature Extraction</span>
-          <span style="font-size:0.8rem;color:var(--text-primary);">TF-IDF Bigrams</span>
+          <span style="font-size:0.92rem;color:var(--text-secondary);font-weight:500;">Feature Extraction</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:600;">TF-IDF Bigrams</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-muted);">Ensemble Method</span>
-          <span style="font-size:0.8rem;color:var(--text-primary);">Probability Averaging</span>
+          <span style="font-size:0.92rem;color:var(--text-secondary);font-weight:500;">Ensemble Method</span>
+          <span style="font-size:0.92rem;color:var(--text-primary);font-weight:600;">Probability Averaging</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-muted);">Indicators Checked</span>
-          <span style="font-size:0.8rem;color:var(--neon-green);">7 heuristics</span>
+          <span style="font-size:0.92rem;color:var(--text-secondary);font-weight:500;">Indicators Checked</span>
+          <span style="font-size:0.92rem;color:var(--neon-green);font-weight:600;">7 heuristics</span>
         </div>
       </div>
     </div>
 
     <!-- What it detects -->
     <div class="glass-card p-4 mb-4 fade-in">
-      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔍 What It Detects</h3>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔍 What It Detects</h3>
       <div style="display:flex;flex-direction:column;gap:0.5rem;">
         {% for item in ['Phishing attempts disguised as emails','Prize & lottery scams','Urgency-based manipulation','Suspicious links & phone numbers','Financial fraud patterns','Adult/explicit content spam','Social engineering attacks'] %}
         <div class="indicator-item threat" style="padding:0.5rem 0.75rem;">
           <span class="indicator-icon">⚠️</span>
-          <span class="indicator-text" style="font-size:0.8rem;">{{ item }}</span>
+          <span class="indicator-text" style="font-size:0.92rem;color:var(--text-primary);font-weight:500;">{{ item }}</span>
         </div>
         {% endfor %}
       </div>
@@ -97,12 +97,12 @@
     <!-- Recent spam scans -->
     {% if recent_scans %}
     <div class="glass-card p-4 fade-in">
-      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">📋 Recent Spam Scans</h3>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">📋 Recent Spam Scans</h3>
       {% for scan in recent_scans %}
       <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.4);">
-        <span class="risk-badge {{ 'critical' if scan.is_threat else 'safe' }}" style="font-size:0.65rem;flex-shrink:0;">{{ scan.result }}</span>
-        <span style="font-size:0.75rem;color:var(--text-muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ scan.input_data[:35] if scan.input_data else '' }}</span>
-        <a href="{{ url_for('reports.generate', scan_id=scan.id) }}" title="Download PDF" style="color:var(--text-muted);flex-shrink:0;"><i class="bi bi-file-pdf"></i></a>
+        <span class="risk-badge {{ 'critical' if scan.is_threat else 'safe' }}" style="font-size:0.75rem;flex-shrink:0;">{{ scan.result }}</span>
+        <span style="font-size:0.85rem;color:var(--text-primary);font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ scan.input_data[:35] if scan.input_data else '' }}</span>
+        <a href="{{ url_for('reports.generate', scan_id=scan.id) }}" title="Download PDF" style="color:var(--text-secondary);flex-shrink:0;font-size:0.9rem;"><i class="bi bi-file-pdf"></i></a>
       </div>
       {% endfor %}
     </div>
