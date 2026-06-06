@@ -127,9 +127,12 @@ def reset_password():
 
     form = OTPResetForm()
     
-    # Prefill email if provided in query params (GET request)
-    if request.method == "GET" and "email" in request.args:
-        form.email.data = request.args.get("email")
+    # Prefill email and otp_code if provided in query params (GET request)
+    if request.method == "GET":
+        if "email" in request.args:
+            form.email.data = request.args.get("email")
+        if "otp_code" in request.args:
+            form.otp_code.data = request.args.get("otp_code")
 
     if form.validate_on_submit():
         email = form.email.data.strip().lower()
@@ -212,5 +215,10 @@ def _send_reset_otp_email(user: User, otp_code: str) -> bool:
         )
         mail.send(msg)
         return True
-    except Exception:
+    except Exception as e:
+        import sys
+        print(f"\n[EMAIL SIMULATION] To: {user.email}", file=sys.stderr)
+        print(f"Subject: AegisShield AI – Password Reset OTP", file=sys.stderr)
+        print(f"Body: Hello {user.username}, your password reset OTP is {otp_code}", file=sys.stderr)
+        print(f"Error details: {str(e)}\n", file=sys.stderr)
         return False
