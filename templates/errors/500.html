@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}500 – Server Error{% endblock %}
+{% block body %}
+<div class="min-vh-100 d-flex align-items-center justify-content-center text-center p-4">
+  <div>
+    <div style="font-size:5rem;font-weight:900;color:var(--danger);font-family:var(--font-mono);">500</div>
+    <h1 style="font-size:1.5rem;font-weight:700;margin:1rem 0 0.5rem;">Internal Server Error</h1>
+    <p style="color:var(--text-muted);margin-bottom:2rem;">Something went wrong on our end. Please try again.</p>
+    <a href="{{ url_for('main.landing') }}" class="btn-neon">Back to Home</a>
+  </div>
+</div>
+{% endblock %}

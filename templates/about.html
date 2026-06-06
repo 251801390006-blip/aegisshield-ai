@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}About AegisShield AI{% endblock %}
+{% block body %}
+<nav class="navbar-aegis navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand-aegis" href="{{ url_for('main.landing') }}">
+      <div class="brand-icon">🛡</div>
+      Aegis<span class="brand-text-blue">Shield</span> AI
+    </a>
+    <div class="ms-auto">
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('dashboard.index') }}" class="btn-neon">Dashboard</a>
+      {% else %}
+      <a href="{{ url_for('auth.login') }}" class="btn-neon">Sign In</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="max-width:900px;padding:4rem 1rem;">
+  <div class="text-center mb-5 fade-in">
+    <div style="font-size:4rem;margin-bottom:1rem;filter:drop-shadow(0 0 20px rgba(0,212,255,0.4));">🛡</div>
+    <h1 style="font-size:2.5rem;font-weight:900;">About AegisShield AI</h1>
+    <p style="color:var(--text-secondary);max-width:600px;margin:1rem auto;font-size:1rem;line-height:1.7;">
+      AegisShield AI is an advanced cybersecurity platform built with Python, Flask, and Scikit-Learn to demonstrate real-world AI/ML applications in cyber threat detection.
+    </p>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <div class="col-md-6">
+      <div class="glass-card p-4 h-100 fade-in">
+        <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🎯 Platform Purpose</h2>
+        <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.7;">
+          Built as an internship showcase project to demonstrate proficiency in full-stack development, machine learning integration, cybersecurity concepts, and professional UI/UX design. Suitable for placement portfolios and technical demonstrations.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="glass-card p-4 h-100 fade-in">
+        <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🤖 AI/ML Stack</h2>
+        <ul style="font-size:0.875rem;color:var(--text-secondary);line-height:2;padding-left:1.25rem;">
+          <li>Naive Bayes + Logistic Regression (Spam)</li>
+          <li>Gradient Boosting + 20-feature engineering (Phishing)</li>
+          <li>Shannon entropy + heuristic rules (Password)</li>
+          <li>Static analysis + magic bytes (Malware)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="glass-card p-4 h-100 fade-in">
+        <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔧 Technical Stack</h2>
+        <ul style="font-size:0.875rem;color:var(--text-secondary);line-height:2;padding-left:1.25rem;">
+          <li>Python 3.11 + Flask 3.x (Backend)</li>
+          <li>SQLAlchemy + SQLite/PostgreSQL (DB)</li>
+          <li>Bootstrap 5 + Chart.js (Frontend)</li>
+          <li>ReportLab (PDF Generation)</li>
+          <li>Gunicorn + Render (Deployment)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="glass-card p-4 h-100 fade-in">
+        <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔒 Security Features</h2>
+        <ul style="font-size:0.875rem;color:var(--text-secondary);line-height:2;padding-left:1.25rem;">
+          <li>CSRF Protection (Flask-WTF)</li>
+          <li>Password Hashing (Werkzeug bcrypt)</li>
+          <li>Rate Limiting (Flask-Limiter)</li>
+          <li>XSS Protection (Bleach sanitization)</li>
+          <li>Secure HTTP headers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-card p-4 text-center fade-in">
+    <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.75rem;">Ready to Experience It?</h2>
+    <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:1.25rem;">Create a free account and start scanning for cyber threats today.</p>
+    <a href="{{ url_for('auth.register') }}" class="btn-neon" style="display:inline-block;padding:0.75rem 2rem;">Get Started Free <i class="bi bi-arrow-right-short"></i></a>
+  </div>
+</div>
+{% endblock %}

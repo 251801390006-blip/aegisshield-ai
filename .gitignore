@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Databases
+*.db
+*.sqlite3
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# Logs and databases
+*.log
+*.sql
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Project uploads
+aegisshield/uploads/
+uploads/
+aegisshield/ml/saved_models/*.joblib

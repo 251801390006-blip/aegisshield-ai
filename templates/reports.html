@@ -1,0 +1,77 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Security Reports{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">📄 Security Reports</h1>
+  <p class="page-subtitle">Download professional PDF reports for your security scans.</p>
+  <div class="page-header-divider"></div>
+</div>
+
+<div class="glass-card overflow-hidden fade-in">
+  {% if reports %}
+  <div style="overflow-x:auto;">
+    <table class="table-aegis">
+      <thead>
+        <tr>
+          <th>Report</th>
+          <th>Type</th>
+          <th>Severity</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+        <tr>
+          <td>
+            <div style="font-size:0.875rem;font-weight:600;color:var(--text-bright);">{{ report.report_title }}</div>
+            {% if report.summary %}
+            <div style="font-size:0.75rem;color:var(--text-muted);max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ report.summary[:60] }}</div>
+            {% endif %}
+          </td>
+          <td><span style="font-size:0.8rem;">{{ report.report_type.title() }}</span></td>
+          <td>
+            <span class="risk-badge {{ 'critical' if report.severity=='CRITICAL' else 'high' if report.severity=='HIGH' else 'medium' if report.severity=='MEDIUM' else 'safe' }}">
+              {{ report.severity }}
+            </span>
+          </td>
+          <td style="font-size:0.8rem;color:var(--text-muted);">{{ report.created_at.strftime('%b %d, %Y') if report.created_at else '-' }}</td>
+          <td>
+            {% if report.scan_history_id %}
+            <a href="{{ url_for('reports.generate', scan_id=report.scan_history_id) }}" class="btn-outline-neon" style="font-size:0.75rem;padding:0.35rem 0.75rem;">
+              <i class="bi bi-download me-1"></i>Download PDF
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:4rem;color:var(--text-muted);">
+    <div style="font-size:3rem;margin-bottom:1rem;">📄</div>
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">No reports yet</h3>
+    <p style="font-size:0.875rem;">Generate PDF reports from your <a href="{{ url_for('history.index') }}" style="color:var(--neon-blue);">scan history</a>.</p>
+  </div>
+  {% endif %}
+</div>
+
+<div class="glass-card p-4 mt-4 fade-in">
+  <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;">📋 How to Generate a Report</h3>
+  <div class="row g-3">
+    <div class="col-md-4 text-center">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">1️⃣</div>
+      <p style="font-size:0.875rem;color:var(--text-secondary);">Run any security scan (spam, phishing, password, or malware)</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">2️⃣</div>
+      <p style="font-size:0.875rem;color:var(--text-secondary);">Go to <a href="{{ url_for('history.index') }}" style="color:var(--neon-blue);">Scan History</a> and find your scan</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">3️⃣</div>
+      <p style="font-size:0.875rem;color:var(--text-secondary);">Click the PDF icon to generate and download your report</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

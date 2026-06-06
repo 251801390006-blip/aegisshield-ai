@@ -1,0 +1,116 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Spam Detection{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">📧 Spam Email Detector</h1>
+  <p class="page-subtitle">AI-powered Naive Bayes + Logistic Regression ensemble identifies spam with high accuracy.</p>
+  <div class="page-header-divider"></div>
+</div>
+
+<div class="row g-4">
+  <!-- Input Panel -->
+  <div class="col-lg-7">
+    <div class="scan-container fade-in">
+      <div class="scan-header">
+        <div class="scan-icon spam" style="color:#ff9800;font-size:1.6rem;">📧</div>
+        <div>
+          <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.15rem;">Email Content Analysis</h2>
+          <p style="font-size:0.8rem;color:var(--text-muted);">Paste the email body or subject line below</p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label-aegis">Email Text</label>
+        <textarea id="emailInput" class="form-control-aegis textarea" rows="8"
+          placeholder="Paste email content here...&#10;&#10;Example: Congratulations! You've won a $1,000 gift card. Click here to claim now!"></textarea>
+        <div style="display:flex;justify-content:space-between;margin-top:0.35rem;">
+          <span style="font-size:0.75rem;color:var(--text-muted);" id="charCount">0 / 10,000 characters</span>
+          <button onclick="document.getElementById('emailInput').value='';updateCharCount();" style="font-size:0.75rem;color:var(--text-muted);background:none;border:none;cursor:pointer;">Clear</button>
+        </div>
+      </div>
+
+      <!-- Sample buttons -->
+      <div class="mb-3 d-flex flex-wrap gap-2">
+        <span style="font-size:0.75rem;color:var(--text-muted);align-self:center;">Try sample:</span>
+        <button class="btn-outline-neon" style="font-size:0.75rem;padding:0.3rem 0.75rem;" onclick="loadSample('spam')">Spam Sample</button>
+        <button class="btn-outline-neon" style="font-size:0.75rem;padding:0.3rem 0.75rem;" onclick="loadSample('ham')">Safe Sample</button>
+      </div>
+
+      <button id="analyzeBtn" class="btn-neon w-100" style="padding:0.85rem;font-size:1rem;" onclick="analyzeSpam()">
+        <span id="analyzeBtnText"><i class="bi bi-search me-2"></i>Analyze Email</span>
+        <span id="analyzeBtnLoader" class="d-none"><span class="spinner-neon" style="width:18px;height:18px;"></span> Analyzing with AI...</span>
+      </button>
+    </div>
+
+    <!-- Scan Loader -->
+    <div class="scan-loader glass-card mt-3 p-4" id="scanLoader">
+      <div class="radar-ring mx-auto mb-3"></div>
+      <p style="color:var(--text-secondary);font-size:0.875rem;">Running AI analysis...</p>
+    </div>
+
+    <!-- Result Panel -->
+    <div id="resultPanel" class="mt-3 fade-in" style="display:none;"></div>
+  </div>
+
+  <!-- Info Panel -->
+  <div class="col-lg-5">
+    <!-- Model info -->
+    <div class="glass-card p-4 mb-4 fade-in">
+      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🤖 AI Model Details</h3>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--text-muted);">Primary Model</span>
+          <span class="risk-badge medium">Naive Bayes</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--text-muted);">Secondary Model</span>
+          <span class="risk-badge medium">Logistic Regression</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--text-muted);">Feature Extraction</span>
+          <span style="font-size:0.8rem;color:var(--text-primary);">TF-IDF Bigrams</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--text-muted);">Ensemble Method</span>
+          <span style="font-size:0.8rem;color:var(--text-primary);">Probability Averaging</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:var(--text-muted);">Indicators Checked</span>
+          <span style="font-size:0.8rem;color:var(--neon-green);">7 heuristics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- What it detects -->
+    <div class="glass-card p-4 mb-4 fade-in">
+      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">🔍 What It Detects</h3>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        {% for item in ['Phishing attempts disguised as emails','Prize & lottery scams','Urgency-based manipulation','Suspicious links & phone numbers','Financial fraud patterns','Adult/explicit content spam','Social engineering attacks'] %}
+        <div class="indicator-item threat" style="padding:0.5rem 0.75rem;">
+          <span class="indicator-icon">⚠️</span>
+          <span class="indicator-text" style="font-size:0.8rem;">{{ item }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Recent spam scans -->
+    {% if recent_scans %}
+    <div class="glass-card p-4 fade-in">
+      <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--neon-blue);">📋 Recent Spam Scans</h3>
+      {% for scan in recent_scans %}
+      <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.4);">
+        <span class="risk-badge {{ 'critical' if scan.is_threat else 'safe' }}" style="font-size:0.65rem;flex-shrink:0;">{{ scan.result }}</span>
+        <span style="font-size:0.75rem;color:var(--text-muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ scan.input_data[:35] if scan.input_data else '' }}</span>
+        <a href="{{ url_for('reports.generate', scan_id=scan.id) }}" title="Download PDF" style="color:var(--text-muted);flex-shrink:0;"><i class="bi bi-file-pdf"></i></a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/spam.js') }}"></script>
+{% endblock %}

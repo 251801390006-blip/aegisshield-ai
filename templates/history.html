@@ -1,0 +1,168 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Scan History{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <h1 class="page-title">📋 Scan History</h1>
+      <p class="page-subtitle">All your security scans in one place.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('history.export_csv') }}" class="btn-outline-neon" style="font-size:0.85rem;padding:0.5rem 1rem;">
+        <i class="bi bi-download me-1"></i>Export CSV
+      </a>
+    </div>
+  </div>
+  <div class="page-header-divider"></div>
+</div>
+
+<!-- Filter Bar -->
+<div class="glass-card p-3 mb-4 fade-in">
+  <form method="GET" action="{{ url_for('history.index') }}" class="d-flex flex-wrap gap-3 align-items-end">
+    <div style="flex:2;min-width:200px;">
+      <label class="form-label-aegis">Search</label>
+      <input type="text" name="search" class="form-control-aegis" placeholder="Search scan input..." value="{{ search }}">
+    </div>
+    <div style="flex:1;min-width:130px;">
+      <label class="form-label-aegis">Type</label>
+      <select name="type" class="form-control-aegis">
+        <option value="">All Types</option>
+        {% for t in ['spam','phishing','password','malware'] %}
+        <option value="{{ t }}" {% if scan_type == t %}selected{% endif %}>{{ t.title() }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="flex:1;min-width:130px;">
+      <label class="form-label-aegis">Result</label>
+      <select name="result" class="form-control-aegis">
+        <option value="">All Results</option>
+        <option value="threats" {% if result_filter == 'threats' %}selected{% endif %}>Threats Only</option>
+        <option value="safe" {% if result_filter == 'safe' %}selected{% endif %}>Safe Only</option>
+      </select>
+    </div>
+    <div style="flex-shrink:0;">
+      <button type="submit" class="btn-neon" style="padding:0.65rem 1.25rem;">
+        <i class="bi bi-search me-1"></i>Filter
+      </button>
+    </div>
+    {% if search or scan_type or result_filter %}
+    <div style="flex-shrink:0;">
+      <a href="{{ url_for('history.index') }}" class="btn-outline-neon" style="padding:0.6rem 1rem;">Clear</a>
+    </div>
+    {% endif %}
+  </form>
+</div>
+
+<!-- Table -->
+<div class="glass-card overflow-hidden fade-in">
+  {% if scans %}
+  <div style="overflow-x:auto;">
+    <table class="table-aegis">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Type</th>
+          <th>Input</th>
+          <th>Result</th>
+          <th>Risk Score</th>
+          <th>Threat</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scan in scans %}
+        <tr id="row-{{ scan.id }}">
+          <td style="color:var(--text-muted);font-size:0.8rem;">{{ scan.id }}</td>
+          <td>
+            <span style="font-size:1rem;">{{ '📧' if scan.scan_type=='spam' else '🎣' if scan.scan_type=='phishing' else '🔐' if scan.scan_type=='password' else '🦠' }}</span>
+            <span style="font-size:0.8rem;color:var(--text-secondary);">{{ scan.scan_type.title() }}</span>
+          </td>
+          <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:0.8rem;font-family:var(--font-mono);" title="{{ scan.input_data }}">
+            {{ scan.input_data[:50] if scan.input_data else '-' }}
+          </td>
+          <td>
+            <span class="risk-badge {{ 'critical' if scan.result in ('SPAM','PHISHING','CRITICAL') else 'high' if scan.result in ('HIGH','MALWARE') else 'low' if scan.result in ('SAFE','VERY STRONG') else 'medium' }}">
+              {{ scan.result }}
+            </span>
+          </td>
+          <td style="font-family:var(--font-mono);font-size:0.8rem;color:{{ 'var(--danger)' if (scan.risk_score or 0) >= 80 else 'var(--warning)' if (scan.risk_score or 0) >= 40 else 'var(--success)' }};">
+            {{ "%.1f"|format(scan.risk_score) if scan.risk_score else '-' }}
+          </td>
+          <td>
+            {% if scan.is_threat %}
+              <span style="color:var(--danger);" title="Threat"><i class="bi bi-exclamation-triangle-fill"></i></span>
+            {% else %}
+              <span style="color:var(--success);" title="Safe"><i class="bi bi-check-circle-fill"></i></span>
+            {% endif %}
+          </td>
+          <td style="font-size:0.75rem;color:var(--text-muted);white-space:nowrap;">
+            {{ scan.created_at.strftime('%b %d, %H:%M') if scan.created_at else '-' }}
+          </td>
+          <td>
+            <div class="d-flex gap-1">
+              <a href="{{ url_for('reports.generate', scan_id=scan.id) }}" class="btn p-1" title="Download PDF Report" style="color:var(--neon-blue);font-size:0.85rem;">
+                <i class="bi bi-file-earmark-pdf"></i>
+              </a>
+              <button class="btn p-1" title="Delete" style="color:var(--danger);font-size:0.85rem;" onclick="deleteScan({{ scan.id }})">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  {% if pagination.pages > 1 %}
+  <div style="padding:1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-color);">
+    <span style="font-size:0.8rem;color:var(--text-muted);">
+      Showing {{ (pagination.page-1)*20+1 }}–{{ [(pagination.page)*20, pagination.total]|min }} of {{ pagination.total }} scans
+    </span>
+    <div class="pagination-aegis">
+      {% if pagination.has_prev %}
+      <a href="{{ url_for('history.index', page=pagination.prev_num, type=scan_type, search=search, result=result_filter) }}" class="page-btn"><i class="bi bi-chevron-left"></i></a>
+      {% endif %}
+      {% for p in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+        {% if p %}
+          <a href="{{ url_for('history.index', page=p, type=scan_type, search=search, result=result_filter) }}" class="page-btn {{ 'active' if p == pagination.page }}">{{ p }}</a>
+        {% else %}
+          <span class="page-btn" style="cursor:default;">…</span>
+        {% endif %}
+      {% endfor %}
+      {% if pagination.has_next %}
+      <a href="{{ url_for('history.index', page=pagination.next_num, type=scan_type, search=search, result=result_filter) }}" class="page-btn"><i class="bi bi-chevron-right"></i></a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% else %}
+  <div style="text-align:center;padding:4rem;color:var(--text-muted);">
+    <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">No scans found</h3>
+    <p style="font-size:0.875rem;">{{ 'No results match your filters.' if (search or scan_type or result_filter) else 'Run your first security scan to see results here.' }}</p>
+    {% if not (search or scan_type or result_filter) %}
+    <a href="{{ url_for('spam.index') }}" class="btn-neon mt-3" style="display:inline-block;">Start First Scan</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function deleteScan(scanId) {
+  if (!confirm('Delete this scan record?')) return;
+  const resp = await fetch(`/history/delete/${scanId}`, { method: 'DELETE', headers: {'X-CSRFToken': getCsrf()} });
+  if (resp.ok) {
+    const row = document.getElementById(`row-${scanId}`);
+    row.style.opacity = '0'; row.style.transition = 'opacity 0.3s';
+    setTimeout(() => row.remove(), 300);
+  }
+}
+function getCsrf() { return document.querySelector('[name=csrf_token]')?.value || ''; }
+</script>
+{% endblock %}

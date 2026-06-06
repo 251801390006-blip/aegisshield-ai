@@ -1,0 +1,199 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Security Dashboard</h1>
+  <p class="page-subtitle">Welcome back, <strong style="color:var(--neon-blue);">{{ current_user.username }}</strong> — here's your threat overview.</p>
+  <div class="page-header-divider"></div>
+</div>
+
+<!-- ── Stats Grid ──────────────────────────────────────────────── -->
+<div class="stats-grid mb-4">
+  <div class="stat-card stat-blue fade-in">
+    <div class="stat-icon icon-blue"><i class="bi bi-shield-check"></i></div>
+    <div class="stat-value" id="totalScans">{{ stats.total }}</div>
+    <div class="stat-label">Total Scans</div>
+  </div>
+  <div class="stat-card stat-red fade-in" style="animation-delay:.05s;">
+    <div class="stat-icon icon-red">⚠️</div>
+    <div class="stat-value" style="color:var(--danger);">{{ stats.threats }}</div>
+    <div class="stat-label">Threats Detected</div>
+  </div>
+  <div class="stat-card stat-green fade-in" style="animation-delay:.1s;">
+    <div class="stat-icon icon-green"><i class="bi bi-check-circle"></i></div>
+    <div class="stat-value" style="color:var(--success);">{{ stats.safe }}</div>
+    <div class="stat-label">Safe Results</div>
+  </div>
+  <div class="stat-card stat-orange fade-in" style="animation-delay:.12s;">
+    <div class="stat-icon icon-orange">📧</div>
+    <div class="stat-value" style="color:var(--warning);">{{ stats.spam }}</div>
+    <div class="stat-label">Spam Detected</div>
+  </div>
+  <div class="stat-card stat-red fade-in" style="animation-delay:.15s;">
+    <div class="stat-icon icon-red">🎣</div>
+    <div class="stat-value" style="color:var(--danger);">{{ stats.phishing }}</div>
+    <div class="stat-label">Phishing URLs</div>
+  </div>
+  <div class="stat-card stat-blue fade-in" style="animation-delay:.18s;">
+    <div class="stat-icon icon-blue">🔐</div>
+    <div class="stat-value">{{ stats.password }}</div>
+    <div class="stat-label">Password Analyses</div>
+  </div>
+  <div class="stat-card stat-purple fade-in" style="animation-delay:.2s;">
+    <div class="stat-icon icon-purple">🦠</div>
+    <div class="stat-value" style="color:var(--neon-purple);">{{ stats.malware }}</div>
+    <div class="stat-label">Files Analyzed</div>
+  </div>
+  <div class="stat-card stat-green fade-in" style="animation-delay:.22s;">
+    <div class="stat-icon icon-green">📊</div>
+    <div class="stat-value" style="color:var(--neon-green);">
+      {% if stats.total > 0 %}{{ ((stats.safe / stats.total) * 100)|round(1) }}%{% else %}N/A{% endif %}
+    </div>
+    <div class="stat-label">Safety Rate</div>
+  </div>
+</div>
+
+<!-- ── Charts Row ──────────────────────────────────────────────── -->
+<div class="two-col-grid mb-4">
+  <!-- Weekly Activity Chart -->
+  <div class="glass-card p-4 fade-in">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+      <div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.15rem;">Weekly Activity</h3>
+        <p style="font-size:0.75rem;color:var(--text-muted);">Scans by type over the last 7 days</p>
+      </div>
+    </div>
+    <canvas id="weeklyChart" height="220"></canvas>
+  </div>
+
+  <!-- Threat Distribution Donut -->
+  <div class="glass-card p-4 fade-in" style="animation-delay:.1s;">
+    <div style="margin-bottom:1.25rem;">
+      <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.15rem;">Threat Distribution</h3>
+      <p style="font-size:0.75rem;color:var(--text-muted);">Breakdown by scan module</p>
+    </div>
+    <div style="max-width:220px;margin:0 auto;">
+      <canvas id="threatDonut" height="220"></canvas>
+    </div>
+    <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+      <span style="font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:10px;height:10px;border-radius:2px;background:var(--warning);display:inline-block;"></span>Spam</span>
+      <span style="font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:10px;height:10px;border-radius:2px;background:var(--danger);display:inline-block;"></span>Phishing</span>
+      <span style="font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:10px;height:10px;border-radius:2px;background:var(--neon-blue);display:inline-block;"></span>Password</span>
+      <span style="font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:0.35rem;"><span style="width:10px;height:10px;border-radius:2px;background:var(--neon-purple);display:inline-block;"></span>Malware</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Quick Scan Buttons + Recent Activity ─────────────────────── -->
+<div class="two-col-grid mb-4">
+  <!-- Quick Scan -->
+  <div class="glass-card p-4 fade-in">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:1.25rem;">Quick Scan</h3>
+    <div style="display:flex;flex-direction:column;gap:0.6rem;">
+      <a href="{{ url_for('spam.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+        <span style="font-size:1.3rem;">📧</span>
+        <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Spam Email Scanner</div><div style="font-size:0.75rem;color:var(--text-muted);">Naive Bayes + Logistic Regression</div></div>
+        <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
+      </a>
+      <a href="{{ url_for('phishing.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+        <span style="font-size:1.3rem;">🎣</span>
+        <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Phishing URL Detector</div><div style="font-size:0.75rem;color:var(--text-muted);">Gradient Boosting · 20 features</div></div>
+        <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
+      </a>
+      <a href="{{ url_for('password.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+        <span style="font-size:1.3rem;">🔐</span>
+        <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Password Strength Analyzer</div><div style="font-size:0.75rem;color:var(--text-muted);">Entropy + Pattern Detection</div></div>
+        <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
+      </a>
+      <a href="{{ url_for('malware.index') }}" class="d-flex align-items-center gap-3 p-3" style="background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;text-decoration:none;transition:all .2s;">
+        <span style="font-size:1.3rem;">🦠</span>
+        <div><div style="font-weight:600;font-size:0.875rem;color:var(--text-bright);">Malware Risk Analyzer</div><div style="font-size:0.75rem;color:var(--text-muted);">File signature · Metadata analysis</div></div>
+        <i class="bi bi-arrow-right-short ms-auto" style="color:var(--text-muted);"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="glass-card p-4 fade-in" style="animation-delay:.1s;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+      <h3 style="font-size:1rem;font-weight:700;">Recent Activity</h3>
+      <a href="{{ url_for('history.index') }}" style="font-size:0.8rem;color:var(--neon-blue);">View all <i class="bi bi-arrow-right-short"></i></a>
+    </div>
+    {% if recent_scans %}
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        {% for scan in recent_scans %}
+        <div style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(48,54,61,0.5);">
+          <span style="font-size:1.1rem;">{{ '📧' if scan.scan_type=='spam' else '🎣' if scan.scan_type=='phishing' else '🔐' if scan.scan_type=='password' else '🦠' }}</span>
+          <div style="min-width:0;flex:1;">
+            <div style="font-size:0.8rem;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              {{ scan.input_data[:40] if scan.input_data else '(no input)' }}
+            </div>
+            <div style="font-size:0.7rem;color:var(--text-muted);">{{ scan.scan_type.title() }} · {{ scan.created_at.strftime('%b %d, %H:%M') if scan.created_at else '' }}</div>
+          </div>
+          <span class="risk-badge {{ 'critical' if scan.is_threat else 'safe' }}" style="flex-shrink:0;">
+            {{ scan.result }}
+          </span>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="text-align:center;padding:2rem;color:var(--text-muted);">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>
+        <p style="font-size:0.875rem;">No scans yet. Start your first analysis!</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const weeklyData = {{ weekly_data | tojson }};
+const stats = {{ stats | tojson }};
+
+// Weekly Activity Chart
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+new Chart(weeklyCtx, {
+  type: 'bar',
+  data: {
+    labels: weeklyData.labels,
+    datasets: [
+      { label: 'Spam', data: weeklyData.spam, backgroundColor: 'rgba(255,152,0,0.7)', borderRadius: 4 },
+      { label: 'Phishing', data: weeklyData.phishing, backgroundColor: 'rgba(255,68,68,0.7)', borderRadius: 4 },
+      { label: 'Password', data: weeklyData.password, backgroundColor: 'rgba(0,212,255,0.7)', borderRadius: 4 },
+      { label: 'Malware', data: weeklyData.malware, backgroundColor: 'rgba(191,90,242,0.7)', borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8b949e', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#6e7681', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.5)' } },
+      y: { ticks: { color: '#6e7681', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.5)' }, beginAtZero: true },
+    }
+  }
+});
+
+// Donut chart
+const donutCtx = document.getElementById('threatDonut').getContext('2d');
+new Chart(donutCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Spam', 'Phishing', 'Password', 'Malware'],
+    datasets: [{
+      data: [stats.spam || 1, stats.phishing || 1, stats.password || 1, stats.malware || 1],
+      backgroundColor: ['rgba(255,152,0,0.8)','rgba(255,68,68,0.8)','rgba(0,212,255,0.8)','rgba(191,90,242,0.8)'],
+      borderColor: ['#0d1117'],
+      borderWidth: 3,
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    cutout: '65%',
+  }
+});
+</script>
+{% endblock %}
