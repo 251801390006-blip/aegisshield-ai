@@ -50,3 +50,30 @@ def index():
         scans=scans,
         stats=stats
     )
+
+
+@admin_bp.route("/reset-database", methods=["POST"])
+def reset_database():
+    """Clears all users (except demo/admin) and scan histories from the database."""
+    from aegisshield.models.user import User
+    from aegisshield.models.scan_history import ScanHistory
+    from aegisshield.models.threat_report import ThreatReport
+    
+    try:
+        # Delete scan history and threat reports
+        ScanHistory.query.delete()
+        ThreatReport.query.delete()
+        
+        # Delete users except demo/admin
+        User.query.filter(
+            User.email != "admin@aegisshield.io", 
+            User.email != "demo@aegisshield.io"
+        ).delete()
+        
+        db.session.commit()
+        flash("Database cleared successfully! All custom user accounts and scan logs have been deleted.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error resetting database: {str(e)}", "danger")
+        
+    return redirect(url_for("admin.index"))
