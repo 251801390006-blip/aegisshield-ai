@@ -62,19 +62,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--border-bright) var(--bg-primary);
-  font-size: 112%; /* Perfect default scale for laptops and desktops */
-}
-
-@media (max-width: 1200px) {
-  html { font-size: 108%; } /* Slightly smaller for compact laptops */
-}
-
-@media (max-width: 991.98px) {
-  html { font-size: 104%; } /* Optimal size for tablet screens */
-}
-
-@media (max-width: 576px) {
-  html { font-size: 98%; } /* Compact scaling for mobile screens to prevent overflow and wrapping */
+  font-size: 118%; /* Scale up all rem typography globally by 18% for high readability */
 }
 
 body {
