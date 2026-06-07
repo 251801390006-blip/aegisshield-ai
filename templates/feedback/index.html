@@ -1,0 +1,255 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Support & Feedback{% endblock %}
+
+{% block extra_css %}
+<style>
+  .feedback-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .tab-btn:hover {
+    color: var(--text-bright);
+    background-color: var(--bg-secondary);
+  }
+  .tab-btn.active {
+    color: var(--neon-blue);
+    background-color: var(--neon-blue-glow);
+  }
+  .feedback-category-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .cat-suggestion { background-color: rgba(139, 92, 246, 0.1); color: var(--neon-purple); }
+  .cat-bug { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); }
+  .cat-issue { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+  .cat-feature_request { background-color: rgba(16, 185, 129, 0.1); color: var(--neon-green); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <h1 class="page-title">💬 Support & Feedback</h1>
+      <p class="page-subtitle">Post suggestions for the community or submit private support tickets to the admin.</p>
+    </div>
+    <div>
+      <a href="{{ url_for('feedback.submit') }}" class="btn-neon" style="font-size:0.875rem;padding:0.6rem 1.25rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">
+        <i class="bi bi-plus-lg"></i> Submit Request / Suggestion
+      </a>
+    </div>
+  </div>
+  <div class="page-header-divider"></div>
+</div>
+
+<!-- Navigation Tabs -->
+<div class="feedback-tabs">
+  <div class="d-flex gap-2">
+    <button class="tab-btn active" onclick="switchTab('suggestions')" id="tab-suggestions-btn">
+      💡 Community Suggestions
+    </button>
+    <button class="tab-btn" onclick="switchTab('support')" id="tab-support-btn">
+      {% if current_user.role == 'admin' %}
+      🛡️ All Support Tickets (Admin)
+      {% else %}
+      🔒 My Support Tickets
+      {% endif %}
+    </button>
+  </div>
+</div>
+
+<!-- Tab Contents -->
+
+<!-- 1. Suggestions Tab -->
+<div id="suggestions-tab" class="glass-card overflow-hidden fade-in">
+  {% if suggestions %}
+  <div style="overflow-x:auto;">
+    <table class="table-cybersquad">
+      <thead>
+        <tr>
+          <th>Suggestion Title</th>
+          <th>Submitted By</th>
+          <th>Status</th>
+          <th>Comments</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in suggestions %}
+        <tr>
+          <td>
+            <div style="font-weight:600;color:var(--text-bright);">{{ item.title }}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              {{ item.content }}
+            </div>
+          </td>
+          <td>
+            <span style="font-size:0.8rem;color:var(--text-secondary);">{{ item.user.username }}</span>
+          </td>
+          <td>
+            <span class="risk-badge {{ 'safe' if item.status == 'resolved' else 'medium' }}">
+              {{ item.status.upper() }}
+            </span>
+          </td>
+          <td>
+            <span style="font-size:0.85rem;color:var(--text-secondary);font-family:var(--font-mono);">
+              <i class="bi bi-chat-dots me-1"></i>{{ item.replies|length }}
+            </span>
+          </td>
+          <td style="font-size:0.8rem;color:var(--text-muted);">
+            {{ item.created_at.strftime('%b %d, %Y') if item.created_at else '-' }}
+          </td>
+          <td>
+            <a href="{{ url_for('feedback.detail', item_id=item.id) }}" class="btn-outline-neon" style="font-size:0.75rem;padding:0.35rem 0.75rem;text-decoration:none;">
+              View Discussion
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:4rem;color:var(--text-muted);">
+    <div style="font-size:3rem;margin-bottom:1rem;">💡</div>
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">No suggestions yet</h3>
+    <p style="font-size:0.875rem;">Be the first to share an idea to improve Cyber Squad!</p>
+    <a href="{{ url_for('feedback.submit') }}" class="btn-outline-neon mt-3" style="display:inline-block;text-decoration:none;">Share Suggestion</a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- 2. Support Tickets Tab -->
+<div id="support-tab" class="glass-card overflow-hidden fade-in d-none">
+  {% if support_tickets %}
+  <div style="overflow-x:auto;">
+    <table class="table-cybersquad">
+      <thead>
+        <tr>
+          <th>Request Title</th>
+          <th>Category</th>
+          {% if current_user.role == 'admin' %}
+          <th>Submitted By</th>
+          {% endif %}
+          <th>Status</th>
+          <th>Replies</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in support_tickets %}
+        <tr>
+          <td>
+            <div style="font-weight:600;color:var(--text-bright);">{{ item.title }}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              {{ item.content }}
+            </div>
+          </td>
+          <td>
+            <span class="feedback-category-badge cat-{{ item.category }}">
+              {% if item.category == 'feature_request' %}Feature Request
+              {% elif item.category == 'bug' %}Bug Report
+              {% else %}Technical Issue{% endif %}
+            </span>
+          </td>
+          {% if current_user.role == 'admin' %}
+          <td>
+            <span style="font-size:0.8rem;color:var(--text-secondary);">{{ item.user.username }} ({{ item.user.email }})</span>
+          </td>
+          {% endif %}
+          <td>
+            <span class="risk-badge {{ 'safe' if item.status == 'resolved' else 'critical' }}">
+              {{ item.status.upper() }}
+            </span>
+          </td>
+          <td>
+            <span style="font-size:0.85rem;color:var(--text-secondary);font-family:var(--font-mono);">
+              <i class="bi bi-chat-lock me-1"></i>{{ item.replies|length }}
+            </span>
+          </td>
+          <td style="font-size:0.8rem;color:var(--text-muted);">
+            {{ item.created_at.strftime('%b %d, %Y') if item.created_at else '-' }}
+          </td>
+          <td>
+            <a href="{{ url_for('feedback.detail', item_id=item.id) }}" class="btn-outline-neon" style="font-size:0.75rem;padding:0.35rem 0.75rem;text-decoration:none;">
+              View Ticket
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div style="text-align:center;padding:4rem;color:var(--text-muted);">
+    <div style="font-size:3rem;margin-bottom:1rem;">🔒</div>
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">No support tickets</h3>
+    <p style="font-size:0.875rem;">
+      {% if current_user.role == 'admin' %}
+      Excellent! There are no outstanding private support tickets.
+      {% else %}
+      Need help? Submit a private ticket to the administrator regarding a bug, issue, or feature request.
+      {% endif %}
+    </p>
+    {% if current_user.role != 'admin' %}
+    <a href="{{ url_for('feedback.submit') }}" class="btn-outline-neon mt-3" style="display:inline-block;text-decoration:none;">Create Support Ticket</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function switchTab(tab) {
+    const suggestionsBtn = document.getElementById('tab-suggestions-btn');
+    const supportBtn = document.getElementById('tab-support-btn');
+    const suggestionsTab = document.getElementById('suggestions-tab');
+    const supportTab = document.getElementById('support-tab');
+
+    if (tab === 'suggestions') {
+      suggestionsBtn.classList.add('active');
+      supportBtn.classList.remove('active');
+      suggestionsTab.classList.remove('d-none');
+      supportTab.classList.add('d-none');
+      localStorage.setItem('feedback_active_tab', 'suggestions');
+    } else {
+      supportBtn.classList.add('active');
+      suggestionsBtn.classList.remove('active');
+      supportTab.classList.remove('d-none');
+      suggestionsTab.classList.add('d-none');
+      localStorage.setItem('feedback_active_tab', 'support');
+    }
+  }
+
+  // Restore last selected tab
+  document.addEventListener('DOMContentLoaded', () => {
+    const activeTab = localStorage.getItem('feedback_active_tab') || 'suggestions';
+    switchTab(activeTab);
+  });
+</script>
+{% endblock %}

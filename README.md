@@ -1,308 +1,263 @@
-# 🛡 Cyber Squad AI – Cyber Crime Detection Platform
+# 🛡️ Cyber Squad AI – Cyber Crime Detection Platform
 
 > **AI-Powered Cybersecurity SaaS Platform** | Full-Stack Flask Application | Production-Ready Internship Project
 
-[![Python](https://img.shields.io/badge/Python-3.11-3776ab?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask)](https://flask.palletsprojects.com)
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.5-f7931e?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952b3?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
-[![Render](https://img.shields.io/badge/Deploy-Render-46e3b7?style=flat-square)](https://render.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.5-f7931e?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952b3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![Render](https://img.shields.io/badge/Deploy-Render-46e3b7?style=for-the-badge)](https://render.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 ---
 
 ## 🚀 Live Demo
 
-**Deployment:** `https://your-app.onrender.com`
+**Deployment URL:** [https://aegisshield-ai.onrender.com/](https://aegisshield-ai.onrender.com/)
 
-**Demo Account:**
-- Email: `demo@cybersquad.io`
-- Password: `Demo@1234`
-
----
-
-## 📸 Screenshots
-
-> Landing Page → Dashboard → Detection Modules → PDF Reports
+**Demo Credentials:**
+* **Standard User:**
+  - Email: `demo@cybersquad.io`
+  - Password: `Demo@1234`
+* **Admin Account:**
+  - Email: `251801390006@cutmap.ac.in`
+  - Password: `Vanjith@2008`
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-### 🔍 Detection Modules
+### 🔍 AI/ML Cyber Crime Detection Modules
 
-| Module | Algorithm | Accuracy |
-|--------|-----------|----------|
-| 📧 Spam Email Detector | Naive Bayes + Logistic Regression (ensemble) | ~98% |
-| 🎣 Phishing URL Scanner | Gradient Boosting + 20 URL features | ~96% |
-| 🔐 Password Analyzer | Shannon Entropy + Heuristics | Rule-based |
-| 🦠 Malware Risk Analyzer | Static Analysis + Magic Bytes | Heuristic |
+* **📧 Spam Email Detector:** Powered by an ensemble of Naive Bayes + Logistic Regression (~98% accuracy) classifying suspicious messaging and marketing spam.
+* **🎣 Phishing URL Scanner:** Utilizes a Gradient Boosting classifier analyzing 20+ structural and domain-level URL features (~96% accuracy).
+* **🔐 Password Strength Analyzer:** Computes Shannon Entropy and applies customized heuristic rule-checking to measure crack time and strength.
+* **🦠 Malware Risk Analyzer:** Performs static analysis, checking file magic bytes, double extensions, and size limits to detect malicious uploads.
 
-### 🛡 Security Features
-- CSRF Protection (Flask-WTF)
-- Password Hashing (Werkzeug/bcrypt)
-- Rate Limiting (Flask-Limiter)
-- XSS Prevention (Bleach sanitization)
-- Secure HTTP Headers
-- SQL Injection Prevention (SQLAlchemy ORM)
-- Input Validation (WTForms)
+### 🛡️ Platform Security & Architecture
+* **Cross-Site Request Forgery (CSRF) Protection** (via Flask-WTF)
+* **Secure Password Hashing** (via PBKDF2/SHA256 hashes using Werkzeug)
+* **Rate Limiting** (via Flask-Limiter to defend against brute force and DDoS)
+* **XSS Defense & Sanitization** (via Bleach input sanitization)
+* **Secure HTTP Security Headers** (CSP, X-Content-Type-Options, HSTS)
+* **SQL Injection Prevention** (strict database operations via SQLAlchemy ORM)
 
-### 📊 Dashboard & Analytics
-- Real-time statistics
-- Weekly activity chart (Chart.js)
-- Threat distribution breakdown
-- Scan history with search/filter
-- CSV export
-
-### 📄 PDF Report Generation
-- Professional cybersecurity reports
-- Risk score gauges
-- Threat indicator tables
-- Security recommendations
-- Generated with ReportLab
+### 📊 Interactive Analytics Dashboard
+* **Real-time Statistics:** Summary counts of total, safe, and threat scans.
+* **Scan Visualization:** Weekly activity progression and threat distribution charts using Chart.js.
+* **Audit History:** Full log search, type filtering, and single-click CSV export options.
+* **Professional PDF Reports:** Automatic generation of structured cybersecurity assessment PDFs with risk gauges, recommendations, and evidence tables (ReportLab integration).
 
 ---
 
-## 🏗 Architecture
+## 💬 Community Suggestions & Support Portal
+
+Cyber Squad AI includes a centralized **Support & Feedback Hub** designed to handle user requests transparently and securely:
+
+* **💡 Community Suggestions (Public):** A collaborative space visible to all users and administrators. Users can post ideas, view community feedback, and reply to discussions.
+* **🔒 Support & Bug Tickets (Private):** Secure tickets for bugs, technical issues, or feature requests. Tickets and replies are **only visible to the submitting user and the Admin team**.
+* **👑 Admin Ticket Watch & Control:** Admins can view all tickets, post replies, and toggle status between `Open` and `Resolved`. Submitting users can also close/resolve their own tickets once answered.
+* **⚡ Real-time Privacy Safeguards:** Form categories dynamically display safety banners confirming if the feedback will be public or private.
+
+---
+
+## 🏗 Directory Structure
 
 ```
 cybersquad/
 ├── app.py                    # Application entry point
 ├── config.py                 # Dev/Test/Prod configurations
-├── requirements.txt
-├── Procfile                  # Gunicorn deployment
-├── render.yaml               # Render deployment config
+├── requirements.txt          # Python dependencies
+├── Procfile                  # WSGI process for deployment
+├── render.yaml               # Render Blueprint config
 │
 ├── cybersquad/              # Main application package
-│   ├── __init__.py           # App factory
-│   ├── extensions.py         # Flask extensions
-│   ├── forms.py              # WTForms definitions
+│   ├── __init__.py           # Flask App factory & database seed logic
+│   ├── extensions.py         # Database, login, CSRF, and mail extensions
+│   ├── forms.py              # WTForms classes
 │   │
-│   ├── models/               # SQLAlchemy models
-│   │   ├── user.py
-│   │   ├── scan_history.py
-│   │   └── threat_report.py
+│   ├── models/               # SQLAlchemy Models
+│   │   ├── user.py           # User accounts & metrics
+│   │   ├── scan_history.py   # Detection log database
+│   │   ├── threat_report.py  # Generated threat reports data
+│   │   ├── otp.py            # Password reset OTP codes
+│   │   └── feedback.py       # Feedback & Support tickets
 │   │
-│   ├── routes/               # Flask blueprints
-│   │   ├── auth.py           # Login/Register/Reset
-│   │   ├── dashboard.py      # Main dashboard
-│   │   ├── spam.py           # Spam detection
-│   │   ├── phishing.py       # URL scanning
-│   │   ├── password.py       # Password analysis
-│   │   ├── malware.py        # File analysis
-│   │   ├── history.py        # Scan history
-│   │   ├── reports.py        # PDF generation
-│   │   ├── profile.py        # User profile
-│   │   └── api.py            # REST API v1
+│   ├── routes/               # Blueprints & Controllers
+│   │   ├── auth.py           # Sign Up, Sign In, switching accounts
+│   │   ├── admin.py          # Admin logs and account management
+│   │   ├── dashboard.py      # User dashboard analytics
+│   │   ├── spam.py           # Spam module
+│   │   ├── phishing.py       # Phishing module
+│   │   ├── password.py       # Password strength module
+│   │   ├── malware.py        # Malware static file scanner
+│   │   ├── history.py        # History search and CSV export
+│   │   ├── reports.py        # PDF report generator
+│   │   ├── profile.py        # Profile edits & password resets
+│   │   ├── feedback.py       # Suggestions & support portal routes
+│   │   └── api.py            # REST API v1 endpoints
 │   │
-│   ├── ml/                   # AI/ML models
-│   │   ├── spam_model.py     # NB + LR ensemble
-│   │   ├── phishing_model.py # GB classifier
-│   │   └── saved_models/     # Persisted models (joblib)
+│   ├── ml/                   # AI/ML Code & Model files
+│   │   ├── spam_model.py     # Ensemble spam classifier
+│   │   ├── phishing_model.py # URL parser & Gradient Boosting classifier
+│   │   └── saved_models/     # Persisted classifiers (.joblib)
 │   │
-│   └── services/             # Business logic
+│   └── services/             # Core business logic
 │       ├── password_service.py
 │       ├── malware_service.py
 │       └── report_service.py
 │
-├── static/
-│   ├── css/main.css          # Dark cybersecurity theme
-│   └── js/                   # Module-specific JS
+├── static/                   # Static resources
+│   ├── css/main.css          # Premium glassmorphism dark theme CSS
+│   └── js/                   # Module-specific JS files
 │
-├── templates/                # Jinja2 HTML templates
-└── tests/                    # Pytest test suite
+├── templates/                # Jinja2 template folder
+│   ├── auth/                 # Sign In, Sign Up, and OTP layouts
+│   ├── feedback/             # Feedback index, submit, and detail templates
+│   ├── dashboard_base.html   # Main sidebar responsive layout
+│   └── ...                   # Module views
+│
+└── tests/                    # Unit testing suite
+    ├── test_auth.py          # Account creation & route authorization tests
+    ├── test_feedback.py      # Support ticket privacy & suggestion tests
+    └── test_models.py        # AI module classification verification tests
 ```
 
 ---
 
 ## ⚡ Quick Start
 
-### Prerequisites
-- Python 3.11+
-- pip
+### 📋 Prerequisites
+* Python 3.11+
+* SQLite (local development) or PostgreSQL (production)
 
-### Installation
+### ⚙️ Installation & Setup
 
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/cybersquad-ai.git
+   cd cybersquad-ai
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   # On Windows (PowerShell/CMD):
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables:**
+   Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   *Note: In development, default variables (SQLite database) will be automatically initialized.*
+
+5. **Run the application:**
+   ```bash
+   python app.py
+   ```
+   The application will start at: **http://localhost:5000**
+
+---
+
+## 🧪 Testing
+
+We use `pytest` for unit testing the application modules, routing constraints, and security.
+
+### Run all tests:
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/cybersquad-ai.git
-cd cybersquad-ai
-
-# Create virtual environment
-python -m venv venv
-
-# Activate (Windows)
-venv\Scripts\activate
-
-# Activate (Mac/Linux)
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Copy environment template
-copy .env.example .env
-
-# Run the application
-python app.py
+pytest
 ```
 
-The app will be available at: **http://localhost:5000**
-
-### Running Tests
-
+### Run specific test suites:
 ```bash
-# Install pytest
-pip install pytest
-
-# Run all tests
-pytest tests/ -v
-
-# Run specific test file
+# Test AI models
 pytest tests/test_models.py -v
+
+# Test authentication
+pytest tests/test_auth.py -v
+
+# Test Suggestions & Support request portal
+pytest tests/test_feedback.py -v
 ```
 
 ---
 
 ## 🌐 API Documentation
 
-### Base URL
-```
-https://your-app.onrender.com/api/v1
-```
+All analysis modules are exposed via a RESTful API under `/api/v1`.
 
-### Endpoints
+### 1. Health Check
+* **Endpoint:** `GET /api/v1/health`
+* **Response:**
+  ```json
+  {"status": "ok", "app": "Cyber Squad AI", "version": "1.0.0"}
+  ```
 
-#### Health Check
-```http
-GET /api/v1/health
-```
-
-#### Spam Analysis
-```http
-POST /api/v1/spam/analyze
-Content-Type: application/json
-Authorization: Session cookie required
-
-{
-  "email_text": "Your email text here"
-}
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "data": {
-    "result": "SPAM",
-    "confidence": 94.7,
-    "spam_probability": 94.7,
-    "ham_probability": 5.3,
-    "is_threat": true,
-    "indicators": ["Contains suspicious URL", "Urgency language detected"],
-    "recommendation": "Do NOT click any links..."
+### 2. Spam Detection
+* **Endpoint:** `POST /api/v1/spam/analyze`
+* **Payload:**
+  ```json
+  {"email_text": "Claim your free money prize now!"}
+  ```
+* **Response:**
+  ```json
+  {
+    "status": "success",
+    "data": {
+      "result": "SPAM",
+      "confidence": 98.4,
+      "is_threat": true,
+      "indicators": ["Urgency keywords", "Spam indicators detected"]
+    }
   }
-}
-```
+  ```
 
-#### Phishing URL Analysis
-```http
-POST /api/v1/phishing/analyze
-Content-Type: application/json
-
-{
-  "url": "http://example.com/login"
-}
-```
-
-#### Password Analysis
-```http
-POST /api/v1/password/analyze
-Content-Type: application/json
-
-{
-  "password": "MyP@ssw0rd123!"
-}
-```
-
-#### Dashboard Statistics
-```http
-GET /api/v1/dashboard/stats
-```
-
-#### Scan History
-```http
-GET /api/v1/history?page=1&per_page=20&type=spam
-```
+### 3. Phishing Scan
+* **Endpoint:** `POST /api/v1/phishing/analyze`
+* **Payload:**
+  ```json
+  {"url": "http://secure-bank-login-update.xyz"}
+  ```
+* **Response:**
+  ```json
+  {
+    "status": "success",
+    "data": {
+      "result": "PHISHING",
+      "risk_score": 92.5,
+      "is_threat": true,
+      "indicators": ["Suspicious TLD", "IP address mismatch"]
+    }
+  }
+  ```
 
 ---
 
 ## 🚀 Deployment
 
 ### Render (Recommended)
+This repository is configured for one-click deployment on [Render](https://render.com) using the included `render.yaml` file:
 
-1. Fork this repository on GitHub
-2. Sign up at [render.com](https://render.com)
-3. Click "New +" → "Web Service"
-4. Connect your GitHub repository
-5. Render will auto-detect `render.yaml`
-6. Add environment variables:
-   - `SECRET_KEY` → generate a random key
-   - `FLASK_ENV` → `production`
-7. Click "Create Web Service"
-
-Your app will be live at: `https://your-service-name.onrender.com`
-
-### Environment Variables for Production
-
-| Variable | Description |
-|----------|-------------|
-| `SECRET_KEY` | Random secret key (min 32 chars) |
-| `FLASK_ENV` | `production` |
-| `DATABASE_URL` | PostgreSQL connection string (auto-provided by Render) |
-| `MAIL_USERNAME` | Gmail address for password resets |
-| `MAIL_PASSWORD` | Gmail app password |
-
----
-
-## 🧪 Technology Stack
-
-| Category | Technology |
-|----------|------------|
-| Language | Python 3.11 |
-| Framework | Flask 3.x + Blueprints |
-| Database | SQLite (dev) / PostgreSQL (prod) |
-| ORM | Flask-SQLAlchemy |
-| Auth | Flask-Login + Werkzeug |
-| Forms | Flask-WTF + WTForms |
-| AI/ML | Scikit-Learn, NumPy, Pandas, Joblib |
-| PDF | ReportLab |
-| Frontend | Bootstrap 5, Chart.js, Vanilla JS |
-| Security | Flask-Limiter, Bleach, CSRFProtect |
-| Deployment | Gunicorn, Render, Vercel |
-
----
-
-## 📝 Internship Project Description
-
-**Cyber Squad AI** is a production-ready cybersecurity SaaS platform demonstrating:
-
-- **Full-Stack Development**: Complete Flask application with blueprints, models, forms, and templates
-- **Machine Learning**: Ensemble spam detection (98% accuracy), URL phishing classification (20+ features), password entropy analysis
-- **Security Engineering**: CSRF protection, rate limiting, input sanitization, secure session management
-- **Professional UI/UX**: Dark cybersecurity theme with glassmorphism, Chart.js dashboards, responsive design
-- **DevOps**: Render deployment with PostgreSQL, environment configuration, Gunicorn WSGI server
-- **Software Engineering**: Test-driven development, clean architecture, RESTful API design
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+1. Fork this repository on GitHub.
+2. Sign up on Render.
+3. Click **New +** → **Blueprint**.
+4. Connect your forked GitHub repository.
+5. Render will automatically detect the configuration and provision:
+   - Web Service running Gunicorn.
+   - PostgreSQL Database instance.
+6. Configure the following environment variables on the Render dashboard:
+   - `SECRET_KEY`: A secure random key.
+   - `FLASK_ENV`: `production`
+7. Click **Deploy**.
 
 ---
 
@@ -314,6 +269,4 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ## 👨‍💻 Author
 
-Built with ❤️ as an internship showcase project.
-
-**Stack Highlights:** Python · Flask · Scikit-Learn · Bootstrap 5 · Chart.js · ReportLab · Render
+Built as a premium cybersecurity SaaS internship showcase project.

@@ -64,6 +64,7 @@ def create_app(config_class=None):
     from cybersquad.routes.api import api_bp
     from cybersquad.routes.main import main_bp
     from cybersquad.routes.admin import admin_bp
+    from cybersquad.routes.feedback import feedback_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -77,6 +78,7 @@ def create_app(config_class=None):
     app.register_blueprint(profile_bp, url_prefix="/profile")
     app.register_blueprint(api_bp, url_prefix="/api/v1")
     app.register_blueprint(admin_bp, url_prefix="/admin")
+    app.register_blueprint(feedback_bp, url_prefix="/feedback")
 
     # ── Create DB tables ────────────────────────────────────────────────────
     with app.app_context():
@@ -104,43 +106,37 @@ def create_app(config_class=None):
 
 
 def _seed_demo_data(app):
-    """Seed demo and admin users on first run (development only)."""
+    """Seed demo and admin users on startup to guarantee their credentials."""
     if app.config.get("TESTING"):
         return
     from cybersquad.models.user import User
     
-    # Check for existing demo user by email or username
-    demo_by_email = User.query.filter_by(email="demo@cybersquad.io").first()
-    demo_by_username = User.query.filter_by(username="demo_user").first()
-    
-    if not demo_by_email:
-        if demo_by_username:
-            demo_by_username.email = "demo@cybersquad.io"
-            demo_by_username.set_password("Demo@1234")
+    # 1. Enforce Demo User
+    demo = User.query.filter_by(email="demo@cybersquad.io").first()
+    if not demo:
+        demo = User.query.filter_by(username="demo_user").first()
+        if demo:
+            demo.email = "demo@cybersquad.io"
         else:
-            demo = User(
-                username="demo_user",
-                email="demo@cybersquad.io",
-                role="user",
-            )
-            demo.set_password("Demo@1234")
+            demo = User(username="demo_user", email="demo@cybersquad.io")
             db.session.add(demo)
             
-    # Check for existing admin user by email or username
-    admin_by_email = User.query.filter_by(email="251801390006@cutmap.ac.in").first()
-    admin_by_username = User.query.filter_by(username="admin_user").first()
-    
-    if not admin_by_email:
-        if admin_by_username:
-            admin_by_username.email = "251801390006@cutmap.ac.in"
-            admin_by_username.set_password("Vanjith@2008")
+    demo.role = "user"
+    demo.is_active = True
+    demo.set_password("Demo@1234")
+            
+    # 2. Enforce Admin User
+    admin = User.query.filter_by(email="251801390006@cutmap.ac.in").first()
+    if not admin:
+        admin = User.query.filter_by(username="admin_user").first()
+        if admin:
+            admin.email = "251801390006@cutmap.ac.in"
         else:
-            admin = User(
-                username="admin_user",
-                email="251801390006@cutmap.ac.in",
-                role="admin",
-            )
-            admin.set_password("Vanjith@2008")
+            admin = User(username="admin_user", email="251801390006@cutmap.ac.in")
             db.session.add(admin)
+            
+    admin.role = "admin"
+    admin.is_active = True
+    admin.set_password("Vanjith@2008")
             
     db.session.commit()

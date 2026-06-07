@@ -38,6 +38,10 @@ def analyze():
 
     result = analyze_password(password)
 
+    # Generate real-time AI summary
+    from cybersquad.services.gemini_service import get_ai_summary
+    result["summary"] = get_ai_summary("password", password, result)
+
     # Store in history (NEVER store the actual password)
     masked = "*" * min(len(password), 8) + f" ({len(password)} chars)"
     scan = ScanHistory(

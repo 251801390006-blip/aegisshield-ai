@@ -12,6 +12,7 @@ class Config:
 
     # ── Security ────────────────────────────────────────────────────────────
     SECRET_KEY = os.environ.get("SECRET_KEY", "cybersquad-dev-secret-key-change-in-production")
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
     WTF_CSRF_ENABLED = True
     WTF_CSRF_TIME_LIMIT = 3600
 

@@ -54,6 +54,10 @@ def analyze():
     detector = get_phishing_detector()
     result = detector.predict(url)
 
+    # Generate real-time AI summary
+    from cybersquad.services.gemini_service import get_ai_summary
+    result["summary"] = get_ai_summary("phishing", url, result)
+
     scan = ScanHistory(
         user_id=current_user.id,
         scan_type="phishing",

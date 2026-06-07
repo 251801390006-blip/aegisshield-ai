@@ -44,6 +44,10 @@ def analyze():
     detector = get_spam_detector()
     result = detector.predict(clean_text)
 
+    # Generate real-time AI summary
+    from cybersquad.services.gemini_service import get_ai_summary
+    result["summary"] = get_ai_summary("spam", clean_text, result)
+
     # Save to history
     scan = ScanHistory(
         user_id=current_user.id,

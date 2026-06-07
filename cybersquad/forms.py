@@ -19,7 +19,13 @@ class RegistrationForm(FlaskForm):
             Regexp(r"^[A-Za-z0-9_]+$", message="Username may only contain letters, numbers, and underscores."),
         ],
     )
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(),
+            Regexp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", message="Invalid email address format.")
+        ]
+    )
     password = PasswordField(
         "Password",
         validators=[
@@ -45,14 +51,25 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(),
+            Regexp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", message="Invalid email address format.")
+        ]
+    )
     password = PasswordField("Password", validators=[DataRequired()])
-    remember = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
 
 
 class ForgotPasswordForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(),
+            Regexp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", message="Invalid email address format.")
+        ]
+    )
     submit = SubmitField("Send Reset Link")
 
 
@@ -69,7 +86,13 @@ class ResetPasswordForm(FlaskForm):
 
 
 class OTPResetForm(FlaskForm):
-    email = StringField("Email Address", validators=[DataRequired(), Email()])
+    email = StringField(
+        "Email Address",
+        validators=[
+            DataRequired(),
+            Regexp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", message="Invalid email address format.")
+        ]
+    )
     otp_code = StringField("6-Digit OTP Code", validators=[DataRequired(), Length(min=6, max=6, message="OTP must be exactly 6 digits.")])
     password = PasswordField(
         "New Password",

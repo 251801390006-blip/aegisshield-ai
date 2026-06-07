@@ -52,7 +52,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.strip().lower()).first()
         if user and user.check_password(form.password.data) and user.is_active:
-            login_user(user, remember=form.remember.data)
+            login_user(user, remember=False)
             user.update_last_login()
             next_page = request.args.get("next")
             flash(f"Welcome back, {user.username}!", "success")

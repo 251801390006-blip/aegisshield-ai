@@ -74,6 +74,10 @@
     <span class="link-icon"><i class="bi bi-file-earmark-pdf"></i></span>
     Reports
   </a>
+  <a href="{{ url_for('feedback.index') }}" class="sidebar-link {% if 'feedback' in request.endpoint %}active{% endif %}">
+    <span class="link-icon"><i class="bi bi-chat-square-text"></i></span>
+    Support & Feedback
+  </a>
 
   <div class="sidebar-section-label">Account</div>
   <a href="{{ url_for('profile.index') }}" class="sidebar-link {% if 'profile' in request.endpoint %}active{% endif %}">

@@ -1,0 +1,89 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Submit Feedback{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">➕ Submit Request & Feedback</h1>
+  <p class="page-subtitle">Share ideas with the community or submit technical support queries to our admin team.</p>
+  <div class="page-header-divider"></div>
+</div>
+
+<div class="row justify-content-center fade-in">
+  <div class="col-lg-8">
+    <div class="glass-card p-4">
+      <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:1.5rem;color:var(--neon-blue);">New Submission Form</h2>
+      
+      <form method="POST" action="{{ url_for('feedback.submit') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <div class="mb-3">
+          <label for="category" class="form-label-cybersquad">Category</label>
+          <select name="category" id="category" class="form-control-cybersquad" onchange="updateVisibilityIndicator()" required>
+            <option value="suggestion" selected>💡 Community Suggestion (Public)</option>
+            <option value="bug">🐛 Bug Report (Private to Admin)</option>
+            <option value="issue">🔧 Technical Issue (Private to Admin)</option>
+            <option value="feature_request">🚀 Feature Request (Private to Admin)</option>
+          </select>
+        </div>
+
+        <!-- Dynamic Visibility Indicator Banner -->
+        <div id="visibility-banner" class="alert-cybersquad mb-3 info">
+          <i class="bi bi-info-circle"></i>
+          <span id="visibility-text">Suggestions are public. All registered users and the administrator can see and reply to them.</span>
+        </div>
+
+        <div class="mb-3">
+          <label for="title" class="form-label-cybersquad">Title / Summary</label>
+          <input type="text" name="title" id="title" class="form-control-cybersquad" placeholder="Brief description of the suggestion or issue" required>
+        </div>
+
+        <div class="mb-4">
+          <label for="content" class="form-label-cybersquad">Description & Details</label>
+          <textarea name="content" id="content" class="form-control-cybersquad" style="height: 180px; resize: vertical;" placeholder="Provide as much context, details, or steps to reproduce as possible..." required></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn-neon" style="padding:0.6rem 1.5rem;">
+            <i class="bi bi-send-fill me-1"></i> Submit Feedback
+          </button>
+          <a href="{{ url_for('feedback.index') }}" class="btn-outline-neon" style="padding:0.6rem 1.5rem;text-decoration:none;">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function updateVisibilityIndicator() {
+    const categorySelect = document.getElementById('category');
+    const banner = document.getElementById('visibility-banner');
+    const text = document.getElementById('visibility-text');
+    const selected = categorySelect.value;
+
+    banner.className = 'alert-cybersquad mb-3'; // Reset classes
+    
+    if (selected === 'suggestion') {
+      banner.classList.add('info');
+      banner.querySelector('i').className = 'bi bi-info-circle';
+      text.textContent = 'Suggestions are public. All registered users and the administrator can see, discuss, and reply to them.';
+    } else {
+      banner.classList.add('warning');
+      banner.querySelector('i').className = 'bi bi-shield-lock-fill';
+      if (selected === 'bug') {
+        text.textContent = 'Bug reports are private. Only you and the system administrator can view, track progress, or comment on this ticket.';
+      } else if (selected === 'issue') {
+        text.textContent = 'Technical issues are private. Only you and the system administrator can view, track progress, or comment on this ticket.';
+      } else if (selected === 'feature_request') {
+        text.textContent = 'Feature requests are private. Only you and the system administrator can view, track progress, or comment on this ticket.';
+      }
+    }
+  }
+
+  // Initial call
+  document.addEventListener('DOMContentLoaded', updateVisibilityIndicator);
+</script>
+{% endblock %}
