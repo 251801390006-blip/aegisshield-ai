@@ -193,7 +193,7 @@ def switch_account(role):
     
     # Determine target email based on role
     if role == "admin":
-        email = "admin@cybersquad.io"
+        email = "251801390006@cutmap.ac.in"
     elif role == "demo":
         email = "demo@cybersquad.io"
     else:
@@ -214,7 +214,7 @@ def switch_account(role):
                     email=email,
                     role="admin"
                 )
-                user.set_password("Admin@1234")
+                user.set_password("Vanjith@2008")
             else:
                 user = User(
                     username="demo_user",

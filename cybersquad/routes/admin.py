@@ -67,7 +67,7 @@ def reset_database():
         
         # Delete users except demo/admin
         User.query.filter(
-            User.email != "admin@cybersquad.io", 
+            User.email != "251801390006@cutmap.ac.in", 
             User.email != "demo@cybersquad.io"
         ).delete()
         

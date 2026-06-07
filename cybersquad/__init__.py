@@ -127,20 +127,20 @@ def _seed_demo_data(app):
             db.session.add(demo)
             
     # Check for existing admin user by email or username
-    admin_by_email = User.query.filter_by(email="admin@cybersquad.io").first()
+    admin_by_email = User.query.filter_by(email="251801390006@cutmap.ac.in").first()
     admin_by_username = User.query.filter_by(username="admin_user").first()
     
     if not admin_by_email:
         if admin_by_username:
-            admin_by_username.email = "admin@cybersquad.io"
-            admin_by_username.set_password("Admin@1234")
+            admin_by_username.email = "251801390006@cutmap.ac.in"
+            admin_by_username.set_password("Vanjith@2008")
         else:
             admin = User(
                 username="admin_user",
-                email="admin@cybersquad.io",
+                email="251801390006@cutmap.ac.in",
                 role="admin",
             )
-            admin.set_password("Admin@1234")
+            admin.set_password("Vanjith@2008")
             db.session.add(admin)
             
     db.session.commit()
