@@ -62,19 +62,15 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--border-bright) var(--bg-primary);
-  font-size: 118%; /* Large highly-readable default scale for desktop and large laptop screens */
-}
-
-@media (max-width: 1199.98px) {
-  html { font-size: 110%; } /* Medium scale for smaller laptops and large tablets */
+  font-size: 118%; /* Large highly-readable default scale for laptop and desktop screens */
 }
 
 @media (max-width: 991.98px) {
-  html { font-size: 104%; } /* Standard scale for standard tablets */
+  html { font-size: 100%; } /* Standard/default scale for tablets and mobile devices */
 }
 
 @media (max-width: 575.98px) {
-  html { font-size: 96%; } /* Clean, compact scale for mobile screens to prevent layout wrapping */
+  html { font-size: 96%; } /* Slightly smaller for small mobile screens to prevent text wrap issues */
 }
 
 body {
@@ -435,9 +431,8 @@ code, pre, .mono { font-family: var(--font-mono); }
 /* ── Main content with sidebar ────────────────────────────────── */
 .main-with-sidebar {
   margin-left: 260px;
-  padding: 2.5rem;
+  padding: 2rem;
   min-height: 100vh;
-  transition: margin-left var(--transition-slow), padding var(--transition-slow);
 }
 
 /* ── Stat Cards ──────────────────────────────────────────────── */
@@ -885,14 +880,14 @@ code, pre, .mono { font-family: var(--font-mono); }
 .toast-cybersquad.warning { border-left: 3px solid var(--warning); }
 
 /* ── Responsive ──────────────────────────────────────────────── */
-@media (max-width: 1199.98px) {
+@media (max-width: 991.98px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
-  .main-with-sidebar { margin-left: 0; padding: 2rem; }
+  .main-with-sidebar { margin-left: 0; }
 }
 
 @media (max-width: 768px) {
-  .main-with-sidebar { padding: 1rem 0.75rem; }
+  .main-with-sidebar { padding: 1rem; }
   .stat-value { font-size: 1.75rem; }
   .scan-container { padding: 1.25rem; }
   .page-title { font-size: 1.5rem; }
