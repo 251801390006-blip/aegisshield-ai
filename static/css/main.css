@@ -62,7 +62,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--border-bright) var(--bg-primary);
-  font-size: 118%; /* Large highly-readable default scale for laptop and desktop screens */
+  font-size: 125%; /* Significantly enlarged scale for laptop and desktop screens */
 }
 
 @media (max-width: 991.98px) {
