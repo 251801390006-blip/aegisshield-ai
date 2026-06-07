@@ -13,7 +13,7 @@
 
 ## 🚀 Live Demo
 
-**Deployment URL:** [https://aegisshield-ai.onrender.com/](https://aegisshield-ai.onrender.com/)
+**Deployment URL:** [https://cybersquad-ai.onrender.com/](https://cybersquad-ai.onrender.com/)
 
 **Demo Credentials:**
 * **Standard User:**
